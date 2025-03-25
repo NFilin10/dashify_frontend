@@ -1,0 +1,28 @@
+
+.widgetsBtn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(0,0,0,.3);
+    border-radius: 4px;
+    padding: 0 12px 0 8px;
+    height: 32px;
+}
+
+.widgetElement{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+}
+
+.widgetsElements{
+    display: flex;
+    gap: 27px;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+
