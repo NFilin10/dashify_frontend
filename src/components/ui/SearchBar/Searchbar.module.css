@@ -1,0 +1,18 @@
+.searchBarWrapper{
+    width: 40%;
+    display: flex;
+    border-radius: 8px;
+    border: 2px solid #737373;
+    align-items: center;
+    height: 40px;
+    gap: 20px;
+}
+
+.inputField{
+    background-color: white;
+    width: 100%;
+}
+
+.inputField:focus{
+    outline: none;
+}
