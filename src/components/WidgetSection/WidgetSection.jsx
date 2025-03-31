@@ -15,6 +15,7 @@ import { DnDProvider, useDnD } from '@/contexts/DnDContext.jsx';
 import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
 import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
+import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
 
 const initialNodes = [
     {
@@ -93,14 +94,15 @@ const DnDFlow = () => {
                     <Background />
                 </ReactFlow>
             </div>
+            {/*<WidgetMenu/>*/}
         </div>
     );
 };
 
 export default () => (
     <ReactFlowProvider>
-        <DnDProvider>
+        {/*<DnDProvider>*/}
             <DnDFlow />
-        </DnDProvider>
+        {/*</DnDProvider>*/}
     </ReactFlowProvider>
 );

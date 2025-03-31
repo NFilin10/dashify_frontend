@@ -32,8 +32,9 @@ function App() {
             <DnDProvider>
                 <Navbar toggleSidebar={toggleSidebar} />
                 {isSidebarOpen && <WidgetMenu sidebarRef={sidebarRef} closeSidebar={() => setIsSidebarOpen(false)} />}
-                {/*<DnDLayout />*/}
-                <FreeformDnDLayout/>
+                <DnDLayout />
+                {/*<FreeformDnDLayout/>*/}
+                <WidgetSection/>
             </DnDProvider>
         </ThemeProvider>
     );
