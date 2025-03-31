@@ -4,6 +4,8 @@ import Column from "./Column";
 import { useState } from "react";
 import { useDnD } from "@/contexts/DnDContext.jsx";
 import Calculator from "@/components/ui/Calculator/Calculator.jsx";
+import { Calendar } from "@/components/ui/calendar";
+
 
 const DnDLayout = () => {
     const data = [
@@ -53,22 +55,33 @@ const DnDLayout = () => {
         if (!over) return;
 
         const activeColumn = findColumn(active.id);
-        if (!activeColumn) return;
+        const overColumn = findColumn(over.id);
+
+        if (!activeColumn || !overColumn) return;
 
         setColumns((prevColumns) => {
-            return prevColumns.map((col) => {
-                if (col.id === activeColumn.id) {
-                    const oldIndex = col.cards.findIndex((c) => c.id === active.id);
-                    const newIndex = col.cards.findIndex((c) => c.id === over.id);
-                    return { ...col, cards: arrayMove(col.cards, oldIndex, newIndex) };
-                }
-                return col;
-            });
+            let activeWidget = activeColumn.cards.find((c) => c.id === active.id);
+            if (!activeWidget) return prevColumns;
+
+            let newColumns = prevColumns.map((col) => ({
+                ...col,
+                cards: col.id === activeColumn.id
+                    ? col.cards.filter((c) => c.id !== active.id) // Remove from old column
+                    : col.cards,
+            }));
+
+            return newColumns.map((col) =>
+                col.id === overColumn.id
+                    ? { ...col, cards: [...col.cards, activeWidget] } // Add to new column
+                    : col
+            );
         });
     };
 
+
     const widgetComponents = {
         calculator: Calculator,
+        calendar: Calendar,
         // Add other widget components here
     };
 
