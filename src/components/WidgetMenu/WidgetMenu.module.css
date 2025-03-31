@@ -1,13 +1,5 @@
 
-.widgetsBtn{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: rgba(0,0,0,.3);
-    border-radius: 4px;
-    padding: 0 12px 0 8px;
-    height: 32px;
-}
+
 
 .widgetElement{
     display: flex;
@@ -26,3 +18,82 @@
 }
 
 
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 250px;
+    background-color: #f4f4f4;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sidebarContent {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.widgetList {
+    list-style-type: none;
+    padding: 0;
+}
+
+.widgetItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.widgetItem:hover {
+    background-color: #e0e0e0;
+}
+
+.icon {
+    font-size: 20px;
+}
+
+.sidebarContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.widgetList {
+    margin-top: 20px;
+}
+
+.widgetItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.closeButton svg {
+    color: #333;
+}
