@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Styles from "./Navbar.module.css";
 import { IoIosSettings } from "react-icons/io";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ModeToggle } from "@/components/ui/mode-toggle.jsx";
 import { IoMenuSharp } from "react-icons/io5";
 import { Switch } from "@/components/ui/switch";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns }) {
     const [showDropdown, setShowDropdown] = useState(false);
+    const dropdownRef = useRef(null);
 
-    const toggleDropdown = () => setShowDropdown(!showDropdown);
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setShowDropdown(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const addColumn = () => {
         if (columns.length < 5) {
@@ -28,8 +44,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns 
         let totalWidth = columns.reduce((sum, col, i) => (i === index ? sum : sum + col.width), 0);
         let newWidth = Math.max(10, Math.min(100 - totalWidth, Number(value)));
 
-        let updatedColumns = columns.map((col, i) => (i === index ? { ...col, width: newWidth } : col));
-        setColumns(updatedColumns);
+        setColumns(columns.map((col, i) => (i === index ? { ...col, width: newWidth } : col)));
     };
 
     return (
@@ -42,8 +57,22 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns 
             <div className={Styles.profileBtn}>
                 <Switch checked={isSwitchOn} onCheckedChange={setIsSwitchOn} />
                 <ModeToggle />
-                <div style={{ position: "relative" }}>
-                    <IoIosSettings style={{ fontSize: "2rem", cursor: "pointer" }} onClick={toggleDropdown} />
+                <div style={{ position: "relative" }} ref={dropdownRef}>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <IoIosSettings style={{ fontSize: "2rem", cursor: "pointer" }} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-56">
+                            <DropdownMenuGroup>
+                                <DropdownMenuItem>Profile</DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => setShowDropdown(true)}>
+                                    CLICK
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>New Team</DropdownMenuItem>
+                            </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
                     {showDropdown && (
                         <div className={Styles.dropdown}>
                             <p>Manage Columns</p>
