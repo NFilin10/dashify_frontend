@@ -1,6 +1,7 @@
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
 import SortableItem from "@/components/DragAndDrop/SortableItem.jsx";
+import Style from './Column.module.css'
 
 const Column = ({ id, title, cards, onDropWidget }) => {
     const { setNodeRef } = useDroppable({ id });
@@ -12,10 +13,10 @@ const Column = ({ id, title, cards, onDropWidget }) => {
 
     return (
         <div
+            className={Style.column}
             ref={setNodeRef}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
-            style={{ width: "500px", background: "#f5f7f9", marginRight: "10px" }}
         >
             <p style={{ padding: "5px 20px", textAlign: "left", fontWeight: "500", color: "#575757" }}>
                 {title}

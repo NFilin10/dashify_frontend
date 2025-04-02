@@ -11,10 +11,10 @@ const SortableItem = ({ id, Component, data }) => {
                 transform: CSS.Transform.toString(transform),
                 transition,
                 padding: "10px",
-                border: "1px solid #ddd",
                 background: "white",
                 marginBottom: "5px",
-                borderRadius: "5px",
+                width: "fit-content",
+                maxWidth: "100%",
             }}
             {...attributes}
             {...listeners}
@@ -23,5 +23,6 @@ const SortableItem = ({ id, Component, data }) => {
         </div>
     );
 };
+
 
 export default SortableItem;
