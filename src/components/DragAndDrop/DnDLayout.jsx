@@ -101,7 +101,9 @@ const DnDLayout = ({ columns, setColumns }) => {
             onDragEnd={handleDragEnd}
             onDragOver={handleDragOver}
         >
-            <div className={Style.columnContainer}>
+            <div
+                className={`${Style.columnContainer} bg-background`}
+            >
                 {columns.map((column) => (
                     <div key={column.id} style={{ width: `${column.width || 100 / columns.length}%` }}>
                         <Column

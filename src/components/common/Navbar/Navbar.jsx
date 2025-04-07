@@ -22,7 +22,7 @@ import {
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns }) {
     const [showDropdown, setShowDropdown] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
-    const [color, setColor] = useState("#aabbcc");
+    const [color, setColor] = useState("#ffff");
 
     const dropdownRef = useRef(null);
 
@@ -99,7 +99,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns 
     };
 
     return (
-        <div className={Styles.navContainer}>
+        <div className={`${Styles.navContainer} bg-background text-foreground shadow-md`}>
             <div className={Styles.widgetsBtn} onClick={toggleSidebar}>
                 <IoMenuSharp />
                 Widgets

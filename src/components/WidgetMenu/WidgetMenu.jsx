@@ -38,7 +38,10 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
     ];
 
     return (
-        <div ref={sidebarRef} className={Styles.sidebarContainer}>
+        <div
+            ref={sidebarRef}
+            className={`${Styles.sidebarContainer} bg-background text-foreground shadow-md transition-colors duration-300`}
+        >
             <div className={Styles.closeButton} onClick={closeSidebar}>
                 <IoClose size={24} />
             </div>

@@ -16,6 +16,7 @@ import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
 import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
+import Styles from "@/components/common/Navbar/Navbar.module.css";
 
 const initialNodes = [
     {
@@ -77,8 +78,12 @@ const DnDFlow = () => {
     );
 
     return (
+
         <div className="dndflow">
-            <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+            <div
+                className="reactflow-wrapper bg-background"
+                ref={reactFlowWrapper}
+            >
                 <ReactFlow
                     nodes={nodes}
                     edges={edges}

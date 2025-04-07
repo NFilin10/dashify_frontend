@@ -32,12 +32,30 @@ function App() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <DnDProvider>
-                <Navbar toggleSidebar={toggleSidebar} isSwitchOn={isSwitchOn} setIsSwitchOn={setIsSwitchOn} columns={columns} setColumns={setColumns} />
-                {isSidebarOpen && <WidgetMenu sidebarRef={sidebarRef} closeSidebar={() => setIsSidebarOpen(false)} />}
-                {isSwitchOn ? <DnDLayout columns={columns} setColumns={setColumns} /> : <WidgetSection />}
+                <div className="bg-background">
+                    <Navbar
+                        toggleSidebar={toggleSidebar}
+                        isSwitchOn={isSwitchOn}
+                        setIsSwitchOn={setIsSwitchOn}
+                        columns={columns}
+                        setColumns={setColumns}
+                    />
+                    {isSidebarOpen && (
+                        <WidgetMenu
+                            sidebarRef={sidebarRef}
+                            closeSidebar={() => setIsSidebarOpen(false)}
+                        />
+                    )}
+                    {isSwitchOn ? (
+                        <DnDLayout columns={columns} setColumns={setColumns} />
+                    ) : (
+                        <WidgetSection />
+                    )}
+                </div>
             </DnDProvider>
         </ThemeProvider>
     );
+
 }
 
 export default App;
