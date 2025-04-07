@@ -88,7 +88,7 @@ const DnDFlow = () => {
                     onConnect={onConnect}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
-                    style={{ backgroundColor: "#F7F9FB" }}
+                    // style={{ backgroundColor: "#F7F9FB" }}
                 >
                     <Controls />
                     <Background />
