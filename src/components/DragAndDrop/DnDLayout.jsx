@@ -18,6 +18,16 @@ const DnDLayout = ({ columns, setColumns }) => {
         );
     };
 
+    const onRemoveWidget = (columnId, cardId) => {
+        setColumns((prevColumns) =>
+            prevColumns.map((col) =>
+                col.id === columnId
+                    ? { ...col, cards: col.cards.filter((c) => c.id !== cardId) }
+                    : col
+            )
+        );
+    };
+
     const handleDragOver = (event) => {
         const { active, over } = event;
         if (!over) return;
@@ -101,9 +111,7 @@ const DnDLayout = ({ columns, setColumns }) => {
             onDragEnd={handleDragEnd}
             onDragOver={handleDragOver}
         >
-            <div
-                className={`${Style.columnContainer} bg-background`}
-            >
+            <div className={`${Style.columnContainer} bg-background`}>
                 {columns.map((column) => (
                     <div key={column.id} style={{ width: `${column.width || 100 / columns.length}%` }}>
                         <Column
@@ -111,6 +119,7 @@ const DnDLayout = ({ columns, setColumns }) => {
                             title={column.title}
                             cards={column.cards}
                             onDropWidget={handleDropWidget}
+                            onRemoveWidget={onRemoveWidget}
                         />
                     </div>
                 ))}
@@ -118,5 +127,6 @@ const DnDLayout = ({ columns, setColumns }) => {
         </DndContext>
     );
 };
+
 
 export default DnDLayout;

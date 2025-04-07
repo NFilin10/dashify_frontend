@@ -3,12 +3,12 @@ import { useDroppable } from "@dnd-kit/core";
 import SortableItem from "@/components/DragAndDrop/SortableItem.jsx";
 import Style from './Column.module.css'
 
-const Column = ({ id, title, cards, onDropWidget }) => {
+const Column = ({ id, title, cards, onDropWidget, onRemoveWidget }) => {
     const { setNodeRef } = useDroppable({ id });
 
     const handleDrop = (e) => {
         e.preventDefault();
-        onDropWidget(id); // Add widget to column on drop
+        onDropWidget(id);
     };
 
     return (
@@ -23,10 +23,15 @@ const Column = ({ id, title, cards, onDropWidget }) => {
             </p>
             <SortableContext items={cards.map((card) => card.id)} strategy={rectSortingStrategy}>
                 {cards.map((card) => (
-                    <SortableItem key={card.id} id={card.id} Component={card.Component} data={card} />
+                    <SortableItem
+                        key={card.id}
+                        id={card.id}
+                        Component={card.Component}
+                        data={card}
+                        onRemove={() => onRemoveWidget(id, card.id)}
+                    />
                 ))}
             </SortableContext>
-
         </div>
     );
 };

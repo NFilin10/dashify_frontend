@@ -32,7 +32,7 @@ function App() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <DnDProvider>
-                <div className="bg-background">
+                <div className="">
                     <Navbar
                         toggleSidebar={toggleSidebar}
                         isSwitchOn={isSwitchOn}

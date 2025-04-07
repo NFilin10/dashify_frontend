@@ -1,8 +1,8 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical } from "lucide-react"; // Import an icon for dragging
+import { GripVertical, X } from "lucide-react"; // Import X icon for remove
 
-const SortableItem = ({ id, Component, data }) => {
+const SortableItem = ({ id, Component, data, onRemove }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
 
     return (
@@ -21,6 +21,7 @@ const SortableItem = ({ id, Component, data }) => {
                 borderRadius: "8px",
             }}
         >
+            {/* Drag handle */}
             <div
                 {...attributes}
                 {...listeners}
@@ -28,11 +29,26 @@ const SortableItem = ({ id, Component, data }) => {
                     cursor: "grab",
                     position: "absolute",
                     top: "5px",
-                    right: "5px",
+                    right: "30px",
                     padding: "5px",
                 }}
             >
                 <GripVertical size={18} />
+            </div>
+
+            {/* Remove button */}
+            <div
+                style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    padding: "5px",
+                }}
+                onClick={() => onRemove(id)}
+                title="Remove widget"
+            >
+                <X size={18} color="#f44336" />
             </div>
 
             {Component && <Component data={data} />}

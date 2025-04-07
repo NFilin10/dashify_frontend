@@ -11,11 +11,9 @@ import {
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
-import { DnDProvider, useDnD } from '@/contexts/DnDContext.jsx';
+import { useDnD } from '@/contexts/DnDContext.jsx';
 import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
 import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
-import Navbar from "@/components/common/Navbar/Navbar.jsx";
-import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
 
 const initialNodes = [
@@ -27,7 +25,7 @@ const initialNodes = [
     },
 ];
 
-let id = 0;
+let id = 2;
 const getId = () => `dndnode_${id++}`;
 
 const nodeTypes = {
@@ -52,33 +50,38 @@ const DnDFlow = () => {
         event.dataTransfer.dropEffect = 'move';
     }, []);
 
+    const handleRemoveNode = useCallback((nodeId) => {
+        setNodes((nodes) => nodes.filter((node) => node.id !== nodeId));
+    }, [setNodes]);
+
     const onDrop = useCallback(
         (event) => {
             event.preventDefault();
-
-            if (!type) {
-                return;
-            }
+            if (!type) return;
 
             const position = screenToFlowPosition({
                 x: event.clientX,
                 y: event.clientY,
             });
 
+            const newId = getId();
             const newNode = {
-                id: getId(),
+                id: newId,
                 type,
                 position,
-                data: { label: `${type} node` },
+                data: {
+                    id: newId,
+                    label: `${type} node`,
+                    onRemove: handleRemoveNode,
+                },
             };
 
             setNodes((nds) => nds.concat(newNode));
         },
-        [screenToFlowPosition, type]
+        [screenToFlowPosition, type, handleRemoveNode, setNodes]
     );
 
     return (
-
         <div className="dndflow">
             <div
                 className="reactflow-wrapper bg-background"
@@ -93,21 +96,17 @@ const DnDFlow = () => {
                     onConnect={onConnect}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
-                    // style={{ backgroundColor: "#F7F9FB" }}
                 >
                     <Controls />
                     <Background />
                 </ReactFlow>
             </div>
-            {/*<WidgetMenu/>*/}
         </div>
     );
 };
 
 export default () => (
     <ReactFlowProvider>
-        {/*<DnDProvider>*/}
-            <DnDFlow />
-        {/*</DnDProvider>*/}
+        <DnDFlow />
     </ReactFlowProvider>
 );
