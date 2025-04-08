@@ -1,9 +1,11 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical, X } from "lucide-react"; // Import X icon for remove
+import { useTheme } from "./../Theme/theme-provider.jsx"; // Import the theme context
 
 const SortableItem = ({ id, Component, data, onRemove }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
+    const { theme } = useTheme(); // Get the current theme from context
 
     return (
         <div
@@ -12,9 +14,9 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                 transform: CSS.Transform.toString(transform),
                 transition,
                 padding: "10px",
-                background: "white",
+                background: theme === "dark" ? "#333" : "white", // Dark mode background is dark gray, light mode is white
                 marginBottom: "5px",
-                width: "fit-content",
+                width: "100%",
                 maxWidth: "100%",
                 position: "relative",
                 border: "1px solid #ddd",
@@ -33,7 +35,10 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                     padding: "5px",
                 }}
             >
-                <GripVertical size={18} />
+                <GripVertical
+                    size={18}
+                    color={theme === "dark" ? "white" : "black"} // Change color based on theme
+                />
             </div>
 
             {/* Remove button */}

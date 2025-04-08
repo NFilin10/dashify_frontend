@@ -17,12 +17,7 @@ import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
 
 const initialNodes = [
-    {
-        id: '1',
-        type: 'input',
-        data: { label: 'input node' },
-        position: { x: 250, y: 5 },
-    },
+
 ];
 
 let id = 2;
