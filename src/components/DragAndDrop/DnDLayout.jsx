@@ -6,6 +6,7 @@ import Calculator from "@/components/ui/Calculator/Calculator.jsx";
 import { Calendar } from "@/components/ui/calendar";
 import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
 import Style from "./DnDLayout.module.css";
+import ClockWidget from "@/components/ui/Clock/Clock.jsx";
 
 const DnDLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -80,7 +81,8 @@ const DnDLayout = ({ columns, setColumns }) => {
     const widgetComponents = {
         calculator: Calculator,
         calendar: Calendar,
-        searchBar: SearchBar
+        searchBar: SearchBar,
+        clock: ClockWidget,
     };
 
     const handleDropWidget = (columnId) => {

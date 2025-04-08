@@ -16,6 +16,7 @@ import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
 import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
 import SearchBarNode from "@/components/Nodes/SearchBarNode.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
+import ClockNode from "@/components/Nodes/ClockNode.jsx";
 
 const initialNodes = [
 
@@ -27,7 +28,8 @@ const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
     calculator: CalculatorNode,
     calendar: CalendarNode,
-    searchBar: SearchBarNode
+    searchBar: SearchBarNode,
+    clock: ClockNode,
 };
 
 const DnDFlow = () => {
