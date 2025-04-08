@@ -1,9 +1,8 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import Calculator from '@/components/ui/Calculator/Calculator.jsx';
-import { X } from "lucide-react";
-
-const CalculatorNode = ({ data }) => {
+import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
+import {X} from "lucide-react";
+const SearchBarNode = ({ data }) => {
     return (
         <div style={{padding: 10, border: '1px solid #ddd', borderRadius: 5, background: '#fff'}}>
             <Handle type="target" position={Position.Top}/>
@@ -21,10 +20,10 @@ const CalculatorNode = ({ data }) => {
             >
                 <X size={16} color="#f44336"/>
             </div>
-            <Calculator/>
+            <SearchBar/>
             <Handle type="source" position={Position.Bottom}/>
         </div>
     );
 };
 
-export default CalculatorNode;
+export default SearchBarNode;

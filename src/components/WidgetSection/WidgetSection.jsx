@@ -14,6 +14,7 @@ import '@xyflow/react/dist/style.css';
 import { useDnD } from '@/contexts/DnDContext.jsx';
 import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
 import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
+import SearchBarNode from "@/components/Nodes/SearchBarNode.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
 
 const initialNodes = [
@@ -26,6 +27,7 @@ const getId = () => `dndnode_${id++}`;
 const nodeTypes = {
     calculator: CalculatorNode,
     calendar: CalendarNode,
+    searchBar: SearchBarNode
 };
 
 const DnDFlow = () => {

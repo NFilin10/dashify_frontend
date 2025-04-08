@@ -1,10 +1,10 @@
 import Styles from './Searchbar.module.css';
 import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
+import { useTheme } from './../../Theme/theme-provider.jsx'; // Import the theme context
 
 function SearchBar() {
-    const style = { fontSize: '1.7rem', color: '#737373', cursor: 'pointer' };
-
+    const { theme } = useTheme(); // Get the current theme
     const [query, setQuery] = useState('');
 
     const handleSearch = () => {
@@ -20,10 +20,23 @@ function SearchBar() {
         }
     };
 
+    // Dynamically set CSS variables based on the current theme
+    const themeStyles = {
+        '--search-bar-bg': theme === 'dark' ? '#333' : '#fff',
+        '--search-bar-shadow': theme === 'dark' ? '0 2px 4px rgba(255, 255, 255, 0.1)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+        '--input-bg': theme === 'dark' ? '#444' : '#fff',
+        '--input-text': theme === 'dark' ? '#fff' : '#333',
+        '--input-focus-bg': theme === 'dark' ? '#555' : '#f5f5f5',
+        '--input-focus-text': theme === 'dark' ? '#fff' : '#111',
+        '--input-placeholder': theme === 'dark' ? '#ccc' : '#aaa',
+        '--icon-color': theme === 'dark' ? '#bbb' : '#737373',
+        '--icon-hover': theme === 'dark' ? '#fff' : '#000',
+    };
+
     return (
-        <div className={Styles.searchBarWrapper}>
+        <div className={Styles.searchBarWrapper} style={themeStyles}>
             <FaSearch
-                style={style}
+                className={Styles.searchIcon}
                 onClick={handleSearch}
             />
             <input

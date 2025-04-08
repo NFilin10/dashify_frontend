@@ -3,7 +3,7 @@ import { Handle, Position } from '@xyflow/react';
 import { Calendar } from "@/components/ui/calendar.jsx";
 import { X } from "lucide-react";
 
-const CalculatorNode = ({ data }) => {
+const CalendarNode = ({ data }) => {
     return (
         <div style={{
             padding: 10,
@@ -37,4 +37,4 @@ const CalculatorNode = ({ data }) => {
     );
 };
 
-export default CalculatorNode;
+export default CalendarNode;
