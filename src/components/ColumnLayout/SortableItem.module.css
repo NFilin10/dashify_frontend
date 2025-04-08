@@ -1,0 +1,28 @@
+
+.sortableItem {
+    padding: 10px;
+    margin-bottom: 5px;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+}
+
+.dragHandle {
+    cursor: grab;
+    position: absolute;
+    top: 5px;
+    right: 30px;
+    padding: 5px;
+}
+
+.removeButton {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+}
+
+.widgetComponent {
+    background: white;
+}

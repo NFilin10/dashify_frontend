@@ -1,36 +1,26 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { GripVertical, X } from "lucide-react"; // Import X icon for remove
-import { useTheme } from "./../Theme/theme-provider.jsx"; // Import the theme context
+import { GripVertical, X } from "lucide-react";
+import { useTheme } from "./../Theme/theme-provider.jsx";
+import styles from "./SortableItem.module.css";
 
 const SortableItem = ({ id, Component, data, onRemove }) => {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id });
-    const { theme } = useTheme(); // Get the current theme from context
+    const { theme } = useTheme();
 
     return (
         <div
             ref={setNodeRef}
+            className={styles.sortableItem}
             style={{
                 transform: CSS.Transform.toString(transform),
                 transition,
-                padding: "10px",
-                marginBottom: "5px",
-                width: "100%",
-                maxWidth: "100%",
-                position: "relative",
             }}
         >
-            {/* Drag handle */}
             <div
                 {...attributes}
                 {...listeners}
-                style={{
-                    cursor: "grab",
-                    position: "absolute",
-                    top: "5px",
-                    right: "30px",
-                    padding: "5px",
-                }}
+                className={styles.dragHandle}
             >
                 <GripVertical
                     size={18}
@@ -38,25 +28,15 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                 />
             </div>
 
-            {/* Remove button */}
             <div
-                style={{
-                    cursor: "pointer",
-                    position: "absolute",
-                    top: "5px",
-                    right: "5px",
-                    padding: "5px",
-                }}
+                className={styles.removeButton}
                 onClick={() => onRemove(id)}
                 title="Remove widget"
             >
                 <X size={18} color="#f44336" />
             </div>
 
-            {Component && <Component data={data} style={{
-                background: "white",
-
-            }}/>}
+            {Component && <Component data={data} className={styles.widgetComponent} />}
         </div>
     );
 };

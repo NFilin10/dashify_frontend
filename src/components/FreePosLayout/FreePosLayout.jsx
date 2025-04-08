@@ -12,13 +12,7 @@ import {
 
 import '@xyflow/react/dist/style.css';
 import { useDnD } from '@/contexts/DnDContext.jsx';
-import CalculatorNode from "@/components/Nodes/CalculatorNode.jsx";
-import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
-import SearchBarNode from "@/components/Nodes/SearchBarNode.jsx";
-import Styles from "@/components/common/Navbar/Navbar.module.css";
-import ClockNode from "@/components/Nodes/ClockNode.jsx";
-import ImageCarouselNode from "@/components/Nodes/ImageCarouselNode.jsx";
-import WeatherNode from "@/components/Nodes/WeatherNode.jsx";
+import DynamicWidgetNode from "@/components/Nodes/DynamicWidgetNode.jsx";
 
 const initialNodes = [
 
@@ -28,13 +22,9 @@ let id = 2;
 const getId = () => `dndnode_${id++}`;
 
 const nodeTypes = {
-    calculator: CalculatorNode,
-    calendar: CalendarNode,
-    searchBar: SearchBarNode,
-    clock: ClockNode,
-    imageCarousel: ImageCarouselNode,
-    weather: WeatherNode,
+    widgetNode: DynamicWidgetNode,
 };
+
 
 const DnDFlow = () => {
     const reactFlowWrapper = useRef(null);
@@ -70,11 +60,11 @@ const DnDFlow = () => {
             const newId = getId();
             const newNode = {
                 id: newId,
-                type,
+                type: 'widgetNode',
                 position,
                 data: {
                     id: newId,
-                    label: `${type} node`,
+                    type: type,
                     onRemove: handleRemoveNode,
                 },
             };
