@@ -1,7 +1,7 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { X } from "lucide-react";
-import ImageCarousel from "@/components/ui/ImageCarousel/ImageCarousel.jsx";
+import ImageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 
 const ImageCarouselNode = ({ data }) => {
     return (

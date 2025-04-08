@@ -1,6 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import Calculator from '@/components/ui/Calculator/Calculator.jsx';
+import Calculator from '@/components/ui/Widgets/Calculator/Calculator.jsx';
 import { X } from "lucide-react";
 
 const CalculatorNode = ({ data }) => {

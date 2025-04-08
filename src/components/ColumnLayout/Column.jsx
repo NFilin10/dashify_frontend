@@ -1,6 +1,6 @@
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import { useDroppable } from "@dnd-kit/core";
-import SortableItem from "@/components/DragAndDrop/SortableItem.jsx";
+import SortableItem from "@/components/ColumnLayout/SortableItem.jsx";
 import Style from './Column.module.css'
 
 const Column = ({ id, title, cards, onDropWidget, onRemoveWidget }) => {

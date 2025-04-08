@@ -2,15 +2,15 @@ import { closestCorners, DndContext, KeyboardSensor, PointerSensor, useSensor, u
 import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import Column from "./Column";
 import { useDnD } from "@/contexts/DnDContext.jsx";
-import Calculator from "@/components/ui/Calculator/Calculator.jsx";
-import { Calendar } from "@/components/ui/calendar";
-import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
-import Style from "./DnDLayout.module.css";
-import ClockWidget from "@/components/ui/Clock/Clock.jsx";
-import imageCarousel from "@/components/ui/ImageCarousel/ImageCarousel.jsx";
-import Weather from "@/components/ui/Weather/Weather.jsx";
+import Calculator from "@/components/ui/Widgets/Calculator/Calculator.jsx";
+import { Calendar } from "@/components/ui/Widgets/calendar.jsx";
+import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
+import Style from "./ColumnLayout.module.css";
+import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
+import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
+import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
 
-const DnDLayout = ({ columns, setColumns }) => {
+const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
 
     const findColumn = (id) => {
@@ -137,4 +137,4 @@ const DnDLayout = ({ columns, setColumns }) => {
 };
 
 
-export default DnDLayout;
+export default ColumnLayout;

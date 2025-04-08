@@ -1,6 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import ClockWidget from "@/components/ui/Clock/Clock.jsx";
+import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
 import { X } from "lucide-react";
 
 const ClockNode = ({ data }) => {

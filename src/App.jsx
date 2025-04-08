@@ -1,12 +1,12 @@
 import "./App.css";
 import { ThemeProvider, useTheme } from "@/components/Theme/theme-provider";  // Import useTheme from theme-provider
-import WidgetSection from "@/components/WidgetSection/WidgetSection.jsx";
-import DnDLayout from "@/components/DragAndDrop/DnDLayout.jsx";
+import WidgetSection from "@/components/FreePosLayout/FreePosLayout.jsx";
+import ColumnLayout from "@/components/ColumnLayout/ColumnLayout.jsx";
 import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
 import { DnDProvider } from "@/contexts/DnDContext.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import { useState, useRef, useEffect } from "react";
-import WeatherWidget from "@/components/ui/Weather/Weather.jsx";
+import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -65,7 +65,7 @@ function App() {
                 )}
                 <div className="workspace" ref={workspaceRef}>  {/* Set ref to workspace */}
                     {isSwitchOn ? (
-                        <DnDLayout columns={columns} setColumns={setColumns} />
+                        <ColumnLayout columns={columns} setColumns={setColumns} />
                     ) : (
                         <WidgetSection />
                     )}

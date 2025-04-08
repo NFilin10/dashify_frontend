@@ -2,7 +2,7 @@ import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 
 import { X } from "lucide-react";
-import WeatherWidget from "@/components/ui/Weather/Weather.jsx";
+import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
 
 const WeatherNode = ({ data }) => {
     return (

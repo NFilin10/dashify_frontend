@@ -1,7 +1,7 @@
 import Styles from './Searchbar.module.css';
 import { FaSearch } from 'react-icons/fa';
 import { useState } from 'react';
-import { useTheme } from './../../Theme/theme-provider.jsx'; // Import the theme context
+import { useTheme } from '../../../Theme/theme-provider.jsx'; // Import the theme context
 
 function SearchBar() {
     const { theme } = useTheme(); // Get the current theme

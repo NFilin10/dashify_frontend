@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./WeatherWidget.module.css";
-import { useTheme } from "../../Theme/theme-provider.jsx";
+import { useTheme } from "../../../Theme/theme-provider.jsx";
 
 const API_KEY = "d1b360531b9a4befac05f96bafb940d4";
 

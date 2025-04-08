@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Styles from './Clock.module.css';
-import { useTheme } from './../../Theme/theme-provider.jsx'; // Assuming you're using a theme provider
+import { useTheme } from '../../../Theme/theme-provider.jsx'; // Assuming you're using a theme provider
 
 const ClockWidget = () => {
     const { theme } = useTheme(); // Get the current theme (light/dark)

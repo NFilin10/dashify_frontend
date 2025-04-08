@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTheme } from "./../../Theme/theme-provider.jsx"; // Import the theme context
+import { useTheme } from "../../../Theme/theme-provider.jsx"; // Import the theme context
 import styles from "./Calculator.module.css"; // Import the CSS Module
 
 export default function Calculator() {

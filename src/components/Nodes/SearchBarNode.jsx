@@ -1,6 +1,6 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
+import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
 import {X} from "lucide-react";
 const SearchBarNode = ({ data }) => {
     return (

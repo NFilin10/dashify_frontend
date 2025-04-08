@@ -34,7 +34,6 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
         { name: "Clock", icon: <FaClock style={style} />, type: "clock" },
         { name: "Calculator", icon: <FaCalculator style={style} />, type: "calculator" },
         { name: "Search bar", icon: <IoSearch style={style} />, type: "searchBar" },
-        // { name: "Section", icon: <TbNewSection style={style} />, type: "section" },
     ];
 
     return (
