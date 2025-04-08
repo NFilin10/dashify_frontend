@@ -19,10 +19,13 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns }) {
+import { useTheme } from "@/components/Theme/theme-provider"; // Import the useTheme hook
+
+function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns, workspaceRef }) {
+    const { theme } = useTheme();  // Access the current theme (dark or light)
     const [showDropdown, setShowDropdown] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
-    const [color, setColor] = useState("#ffff");
+    const [color, setColor] = useState(""); // Default color based on theme
 
     const dropdownRef = useRef(null);
 
@@ -38,11 +41,10 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns 
     }, []);
 
     useEffect(() => {
-        if (color) {
-            document.body.style.backgroundImage = "";
-            document.body.style.backgroundColor = color;
+        if (color && workspaceRef.current) {
+            workspaceRef.current.style.backgroundColor = color;  // Apply the background color to the workspace
         }
-    }, [color]);
+    }, [color, workspaceRef]);
 
     const addColumn = () => {
         if (columns.length < 5) {
@@ -90,16 +92,18 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns 
 
         const reader = new FileReader();
         reader.onloadend = () => {
-            document.body.style.backgroundImage = `url(${reader.result})`;
-            document.body.style.backgroundSize = "cover";
-            document.body.style.backgroundRepeat = "no-repeat";
-            document.body.style.backgroundPosition = "center";
+            if (workspaceRef.current) {
+                workspaceRef.current.style.backgroundImage = `url(${reader.result})`;
+                workspaceRef.current.style.backgroundSize = "cover";
+                workspaceRef.current.style.backgroundRepeat = "no-repeat";
+                workspaceRef.current.style.backgroundPosition = "center";
+            }
         };
         reader.readAsDataURL(file);
     };
 
     return (
-        <div className={`${Styles.navContainer} bg-background text-foreground shadow-md`}>
+        <div className={`${Styles.navContainer} text-foreground shadow-md`}>
             <div className={Styles.widgetsBtn} onClick={toggleSidebar}>
                 <IoMenuSharp />
                 Widgets

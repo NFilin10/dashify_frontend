@@ -27,7 +27,7 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
         { name: "News", icon: <FaRegNewspaper style={style} />, type: "news" },
         { name: "Weather", icon: <TiWeatherPartlySunny style={style} />, type: "weather" },
         { name: "Custom links", icon: <CiLink style={style} />, type: "customLinks" },
-        { name: "Image carousel", icon: <FaImage style={style} />, type: "imageCarousel" },
+        { name: "Image carousel",  icon: <FaImage style={style} />, type: "imageCarousel" },
         { name: "Todo list", icon: <LuListTodo style={style} />, type: "todoList" },
         { name: "Html code", icon: <FaCode style={style} />, type: "htmlCode" },
         { name: "Calendar", icon: <FaRegCalendarAlt style={style} />, type: "calendar" },

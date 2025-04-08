@@ -1,5 +1,5 @@
 import "./App.css";
-import { ThemeProvider } from "@/components/Theme/theme-provider.jsx";
+import { ThemeProvider, useTheme } from "@/components/Theme/theme-provider";  // Import useTheme from theme-provider
 import WidgetSection from "@/components/WidgetSection/WidgetSection.jsx";
 import DnDLayout from "@/components/DragAndDrop/DnDLayout.jsx";
 import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
@@ -11,11 +11,14 @@ function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const sidebarRef = useRef(null);
-
+    const workspaceRef = useRef(null);
     const [columns, setColumns] = useState([
         { id: "Column1", title: "Column 1", cards: [], width: 50 },
         { id: "Column2", title: "Column 2", cards: [], width: 50 },
     ]);
+
+    // Access the theme using useTheme hook
+    const { theme } = useTheme();
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -29,23 +32,35 @@ function App() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    // Update workspace background color based on theme change
+    useEffect(() => {
+        if (workspaceRef.current) {
+            if (theme === "dark") {
+                workspaceRef.current.style.backgroundColor = "#000000";  // Black for dark mode
+            } else if (theme === "light") {
+                workspaceRef.current.style.backgroundColor = "#ffffff";  // White for light mode
+            }
+        }
+    }, [theme]);  // This effect runs whenever the theme changes
+
     return (
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
             <DnDProvider>
-                <div className="">
-                    <Navbar
-                        toggleSidebar={toggleSidebar}
-                        isSwitchOn={isSwitchOn}
-                        setIsSwitchOn={setIsSwitchOn}
-                        columns={columns}
-                        setColumns={setColumns}
+                <Navbar
+                    toggleSidebar={toggleSidebar}
+                    isSwitchOn={isSwitchOn}
+                    setIsSwitchOn={setIsSwitchOn}
+                    columns={columns}
+                    setColumns={setColumns}
+                    workspaceRef={workspaceRef}  // Pass workspaceRef to Navbar
+                />
+                {isSidebarOpen && (
+                    <WidgetMenu
+                        sidebarRef={sidebarRef}
+                        closeSidebar={() => setIsSidebarOpen(false)}
                     />
-                    {isSidebarOpen && (
-                        <WidgetMenu
-                            sidebarRef={sidebarRef}
-                            closeSidebar={() => setIsSidebarOpen(false)}
-                        />
-                    )}
+                )}
+                <div className="workspace" ref={workspaceRef}>  {/* Set ref to workspace */}
                     {isSwitchOn ? (
                         <DnDLayout columns={columns} setColumns={setColumns} />
                     ) : (
@@ -55,7 +70,6 @@ function App() {
             </DnDProvider>
         </ThemeProvider>
     );
-
 }
 
 export default App;

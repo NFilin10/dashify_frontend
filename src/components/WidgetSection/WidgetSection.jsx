@@ -84,7 +84,7 @@ const DnDFlow = () => {
     return (
         <div className="dndflow">
             <div
-                className="reactflow-wrapper bg-background"
+                className="reactflow-wrapper"
                 ref={reactFlowWrapper}
             >
                 <ReactFlow
