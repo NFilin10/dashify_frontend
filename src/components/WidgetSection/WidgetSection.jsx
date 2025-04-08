@@ -17,6 +17,7 @@ import CalendarNode from "@/components/Nodes/CalendarNode.jsx";
 import SearchBarNode from "@/components/Nodes/SearchBarNode.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
 import ClockNode from "@/components/Nodes/ClockNode.jsx";
+import ImageCarouselNode from "@/components/Nodes/ImageCarouselNode.jsx";
 
 const initialNodes = [
 
@@ -30,6 +31,7 @@ const nodeTypes = {
     calendar: CalendarNode,
     searchBar: SearchBarNode,
     clock: ClockNode,
+    imageCarousel: ImageCarouselNode,
 };
 
 const DnDFlow = () => {
