@@ -6,3 +6,13 @@
     border-radius: 10px;
     margin-top: 10px;
 }
+
+.emptyColumn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    color: #575757;
+    text-align: center;
+}

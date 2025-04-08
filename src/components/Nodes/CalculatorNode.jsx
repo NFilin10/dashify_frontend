@@ -5,7 +5,7 @@ import { X } from "lucide-react";
 
 const CalculatorNode = ({ data }) => {
     return (
-        <div style={{padding: 10, border: '1px solid #ddd', borderRadius: 5, background: '#fff'}}>
+        <div>
             <Handle type="target" position={Position.Top}/>
             <div
                 style={{

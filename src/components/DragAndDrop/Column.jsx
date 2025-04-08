@@ -18,20 +18,24 @@ const Column = ({ id, title, cards, onDropWidget, onRemoveWidget }) => {
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
         >
-            <p style={{ padding: "5px 20px", textAlign: "left", fontWeight: "500", color: "#575757" }}>
-                {title}
-            </p>
-            <SortableContext items={cards.map((card) => card.id)} strategy={rectSortingStrategy}>
-                {cards.map((card) => (
-                    <SortableItem
-                        key={card.id}
-                        id={card.id}
-                        Component={card.Component}
-                        data={card}
-                        onRemove={() => onRemoveWidget(id, card.id)}
-                    />
-                ))}
-            </SortableContext>
+            {cards.length === 0 ? (
+                <div className={Style.emptyColumn}>
+                    <p>{title}</p>
+                </div>
+            ) : (
+                <SortableContext items={cards.map((card) => card.id)} strategy={rectSortingStrategy}>
+                    {cards.map((card) => (
+                        <SortableItem
+                            key={card.id}
+                            id={card.id}
+                            Component={card.Component}
+                            data={card}
+                            onRemove={() => onRemoveWidget(id, card.id)}
+                        />
+                    ))}
+                </SortableContext>
+            )}
+
         </div>
     );
 };

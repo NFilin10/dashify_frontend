@@ -24,17 +24,17 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
     };
 
     const widgetElements = [
-        { name: "News", icon: <FaRegNewspaper style={style} />, type: "news" },
+        // { name: "News", icon: <FaRegNewspaper style={style} />, type: "news" },
         { name: "Weather", icon: <TiWeatherPartlySunny style={style} />, type: "weather" },
-        { name: "Custom links", icon: <CiLink style={style} />, type: "customLinks" },
+        // { name: "Custom links", icon: <CiLink style={style} />, type: "customLinks" },
         { name: "Image carousel",  icon: <FaImage style={style} />, type: "imageCarousel" },
-        { name: "Todo list", icon: <LuListTodo style={style} />, type: "todoList" },
-        { name: "Html code", icon: <FaCode style={style} />, type: "htmlCode" },
+        // { name: "Todo list", icon: <LuListTodo style={style} />, type: "todoList" },
+        // { name: "Html code", icon: <FaCode style={style} />, type: "htmlCode" },
         { name: "Calendar", icon: <FaRegCalendarAlt style={style} />, type: "calendar" },
         { name: "Clock", icon: <FaClock style={style} />, type: "clock" },
         { name: "Calculator", icon: <FaCalculator style={style} />, type: "calculator" },
         { name: "Search bar", icon: <IoSearch style={style} />, type: "searchBar" },
-        { name: "Section", icon: <TbNewSection style={style} />, type: "section" },
+        // { name: "Section", icon: <TbNewSection style={style} />, type: "section" },
     ];
 
     return (

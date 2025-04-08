@@ -5,7 +5,7 @@ import ImageCarousel from "@/components/ui/ImageCarousel/ImageCarousel.jsx";
 
 const ImageCarouselNode = ({ data }) => {
     return (
-        <div style={{padding: 10, border: '1px solid #ddd', borderRadius: 5, background: '#fff', width: '450px'}}>
+        <div>
             <Handle type="target" position={Position.Top}/>
             <div
                 style={{

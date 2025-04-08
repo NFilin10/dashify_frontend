@@ -8,6 +8,7 @@ import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
 import Style from "./DnDLayout.module.css";
 import ClockWidget from "@/components/ui/Clock/Clock.jsx";
 import imageCarousel from "@/components/ui/ImageCarousel/ImageCarousel.jsx";
+import Weather from "@/components/ui/Weather/Weather.jsx";
 
 const DnDLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -84,7 +85,8 @@ const DnDLayout = ({ columns, setColumns }) => {
         calendar: Calendar,
         searchBar: SearchBar,
         clock: ClockWidget,
-        imageCarousel: imageCarousel
+        imageCarousel: imageCarousel,
+        weather: Weather
     };
 
     const handleDropWidget = (columnId) => {

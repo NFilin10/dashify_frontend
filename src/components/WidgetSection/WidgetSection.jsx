@@ -18,6 +18,7 @@ import SearchBarNode from "@/components/Nodes/SearchBarNode.jsx";
 import Styles from "@/components/common/Navbar/Navbar.module.css";
 import ClockNode from "@/components/Nodes/ClockNode.jsx";
 import ImageCarouselNode from "@/components/Nodes/ImageCarouselNode.jsx";
+import WeatherNode from "@/components/Nodes/WeatherNode.jsx";
 
 const initialNodes = [
 
@@ -32,6 +33,7 @@ const nodeTypes = {
     searchBar: SearchBarNode,
     clock: ClockNode,
     imageCarousel: ImageCarouselNode,
+    weather: WeatherNode,
 };
 
 const DnDFlow = () => {

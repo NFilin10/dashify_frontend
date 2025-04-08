@@ -1,10 +1,12 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
-import SearchBar from "@/components/ui/SearchBar/SearchBar.jsx";
-import {X} from "lucide-react";
-const SearchBarNode = ({ data }) => {
+
+import { X } from "lucide-react";
+import WeatherWidget from "@/components/ui/Weather/Weather.jsx";
+
+const WeatherNode = ({ data }) => {
     return (
-        <div style={{width: "400px"}}>
+        <div>
             <Handle type="target" position={Position.Top}/>
             <div
                 style={{
@@ -20,10 +22,10 @@ const SearchBarNode = ({ data }) => {
             >
                 <X size={16} color="#f44336"/>
             </div>
-            <SearchBar/>
+            <WeatherWidget/>
             <Handle type="source" position={Position.Bottom}/>
         </div>
     );
 };
 
-export default SearchBarNode;
+export default WeatherNode;

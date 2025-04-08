@@ -1,0 +1,66 @@
+.widget {
+    padding: 2rem;
+    background: var(--bg);
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-family: system-ui, sans-serif;
+}
+
+.input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
+    border-radius: 5px;
+    padding: 0.4rem;
+}
+
+.button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.button:disabled {
+    background-color: var(--button-disabled);
+}
+
+.error {
+    color: var(--error);
+}
+
+.info {
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+}
+
+.input {
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text);
+}
+
+.button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+
+.button:disabled {
+    background-color: var(--button-disabled);
+}
+
+.error {
+    color: var(--error);
+}
+
+.info {
+    border-radius: 7px;
+    padding: 1.5rem;
+    margin-top: 10px;
+    background: var(--card-bg);
+    box-shadow: var(--shadow);
+}
+
+.form{
+    display: flex;
+    gap: 30px;
+}

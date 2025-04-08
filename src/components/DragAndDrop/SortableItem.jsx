@@ -14,13 +14,10 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                 transform: CSS.Transform.toString(transform),
                 transition,
                 padding: "10px",
-                background: theme === "dark" ? "#333" : "white", // Dark mode background is dark gray, light mode is white
                 marginBottom: "5px",
                 width: "100%",
                 maxWidth: "100%",
                 position: "relative",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
             }}
         >
             {/* Drag handle */}
@@ -37,7 +34,7 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
             >
                 <GripVertical
                     size={18}
-                    color={theme === "dark" ? "white" : "black"} // Change color based on theme
+                    color={theme === "dark" ? "gray" : "black"} // Change color based on theme
                 />
             </div>
 
@@ -56,7 +53,10 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                 <X size={18} color="#f44336" />
             </div>
 
-            {Component && <Component data={data} />}
+            {Component && <Component data={data} style={{
+                background: "white",
+
+            }}/>}
         </div>
     );
 };

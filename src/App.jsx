@@ -6,6 +6,7 @@ import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
 import { DnDProvider } from "@/contexts/DnDContext.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import { useState, useRef, useEffect } from "react";
+import WeatherWidget from "@/components/ui/Weather/Weather.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -13,8 +14,9 @@ function App() {
     const sidebarRef = useRef(null);
     const workspaceRef = useRef(null);
     const [columns, setColumns] = useState([
-        { id: "Column1", title: "Column 1", cards: [], width: 50 },
-        { id: "Column2", title: "Column 2", cards: [], width: 50 },
+        { id: "Column1", title: "+", cards: [], width: 25 },
+        { id: "Column2", title: "+", cards: [], width: 25 },
+        { id: "Column3", title: "+", cards: [], width: 50 },
     ]);
 
     // Access the theme using useTheme hook
@@ -54,6 +56,7 @@ function App() {
                     setColumns={setColumns}
                     workspaceRef={workspaceRef}  // Pass workspaceRef to Navbar
                 />
+                {/*<WeatherWidget/>*/}
                 {isSidebarOpen && (
                     <WidgetMenu
                         sidebarRef={sidebarRef}

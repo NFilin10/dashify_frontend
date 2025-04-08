@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import Styles from './ImageCarousel.module.css';
-import { useTheme } from './../../Theme/theme-provider.jsx'; // Assuming you're using a theme provider
+import { useTheme } from './../../Theme/theme-provider.jsx';
 
 function ImageCarouselNode({ data }) {
     const [images, setImages] = useState([]);

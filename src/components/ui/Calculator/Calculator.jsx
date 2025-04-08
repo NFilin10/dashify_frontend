@@ -87,8 +87,13 @@ export default function Calculator() {
     };
 
     return (
-        <div className={`${styles.calcWrapper} ${theme === "dark" ? "bg-black text-white" : "bg-white text-black"}`}>
-            {/* This outputs the value to a paragraph */}
+        <div
+            className={styles.calcWrapper}
+            style={{
+                "--calc-bg": theme === "dark" ? "#333" : "#fff",
+            }}
+        >
+        {/* This outputs the value to a paragraph */}
             <p
                 id={styles.resultScreen}
                 className={theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-200 text-black"}

@@ -141,7 +141,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                     </DropdownMenu>
 
                     {showDropdown && (
-                        <div className={Styles.dropdown}>
+                        <div  className={`${Styles.dropdown} text-foreground shadow-md bg-background`}>
                             <p>Manage Columns</p>
                             <button onClick={addColumn}>Add Column</button>
                             {columns.map((col, index) => (
