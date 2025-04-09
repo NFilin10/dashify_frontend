@@ -9,6 +9,7 @@ import { Calendar } from "@/components/ui/Widgets/calendar.jsx";
 import ImageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
+import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 
 const widgetMap = {
     calculator: Calculator,
@@ -18,6 +19,7 @@ const widgetMap = {
     imageCarousel: ImageCarousel,
     searchBar: SearchBar,
     note: Note,
+    customLinks: CustomLinks,
 };
 
 const DynamicWidgetNode = ({ data }) => {

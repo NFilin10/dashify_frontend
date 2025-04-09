@@ -10,6 +10,7 @@ import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
 import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
+import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 
 const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -88,7 +89,8 @@ const ColumnLayout = ({ columns, setColumns }) => {
         clock: ClockWidget,
         imageCarousel: imageCarousel,
         weather: Weather,
-        note: Note
+        note: Note,
+        customLinks: customLinks,
     };
 
     const handleDropWidget = (columnId) => {

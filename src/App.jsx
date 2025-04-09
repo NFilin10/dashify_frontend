@@ -8,6 +8,7 @@ import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import { useState, useRef, useEffect } from "react";
 import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
+import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -55,7 +56,7 @@ function App() {
                     setIsSwitchOn={setIsSwitchOn}
                     columns={columns}
                     setColumns={setColumns}
-                    workspaceRef={workspaceRef}  // Pass workspaceRef to Navbar
+                    workspaceRef={workspaceRef}
                 />
                 {isSidebarOpen && (
                     <WidgetMenu
@@ -63,7 +64,7 @@ function App() {
                         closeSidebar={() => setIsSidebarOpen(false)}
                     />
                 )}
-                <div className="workspace" ref={workspaceRef}>  {/* Set ref to workspace */}
+                <div className="workspace" ref={workspaceRef}>
                     {isSwitchOn ? (
                         <ColumnLayout columns={columns} setColumns={setColumns} />
                     ) : (
