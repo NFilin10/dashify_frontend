@@ -12,6 +12,7 @@ import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
+import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
 
 const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -92,7 +93,8 @@ const ColumnLayout = ({ columns, setColumns }) => {
         weather: Weather,
         note: Note,
         customLinks: customLinks,
-        news: News
+        news: News,
+        todoList: ToDo
     };
 
     const handleDropWidget = (columnId) => {

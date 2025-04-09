@@ -11,6 +11,7 @@ import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
+import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
 
 const widgetMap = {
     calculator: Calculator,
@@ -21,7 +22,8 @@ const widgetMap = {
     searchBar: SearchBar,
     note: Note,
     customLinks: CustomLinks,
-    news: News
+    news: News,
+    todoList: ToDo
 
 };
 

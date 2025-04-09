@@ -10,6 +10,7 @@ import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import NewsWidget from "@/components/ui/Widgets/News/News.jsx";
+import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -46,7 +47,7 @@ function App() {
                 workspaceRef.current.style.backgroundColor = "#ffffff";  // White for light mode
             }
         }
-    }, [theme]);  // This effect runs whenever the theme changes
+    }, [theme]);
 
     return (
         <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
