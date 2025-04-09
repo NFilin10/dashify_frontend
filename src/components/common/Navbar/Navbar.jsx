@@ -42,7 +42,9 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
 
     useEffect(() => {
         if (color && workspaceRef.current) {
-            workspaceRef.current.style.backgroundColor = color;  // Apply the background color to the workspace
+            // Set the background color and clear the background image
+            workspaceRef.current.style.backgroundColor = color;
+            workspaceRef.current.style.backgroundImage = "";  // Clear the background image
         }
     }, [color, workspaceRef]);
 
@@ -52,7 +54,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                 ...columns,
                 {
                     id: `Column${columns.length + 1}`,
-                    title: `Column ${columns.length + 1}`,
+                    title: "+",
                     cards: [],
                     width: 100 / (columns.length + 1),
                 },
@@ -67,7 +69,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                 newColumns.map((col, i) => ({
                     ...col,
                     id: `Column${i + 1}`,
-                    title: `Column ${i + 1}`,
+                    title: "+",
                 }))
             );
         }
@@ -93,10 +95,12 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
         const reader = new FileReader();
         reader.onloadend = () => {
             if (workspaceRef.current) {
+                // Set the background image and clear the background color
                 workspaceRef.current.style.backgroundImage = `url(${reader.result})`;
                 workspaceRef.current.style.backgroundSize = "cover";
                 workspaceRef.current.style.backgroundRepeat = "no-repeat";
                 workspaceRef.current.style.backgroundPosition = "center";
+                workspaceRef.current.style.backgroundColor = "";  // Clear the background color
             }
         };
         reader.readAsDataURL(file);
@@ -135,13 +139,12 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                                 <DropdownMenuItem onClick={() => setShowDropdown(true)}>
                                     Manage Columns
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>New Team</DropdownMenuItem>
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>
 
                     {showDropdown && (
-                        <div  className={`${Styles.dropdown} text-foreground shadow-md bg-background`}>
+                        <div className={`${Styles.dropdown} text-foreground shadow-md bg-background`}>
                             <p>Manage Columns</p>
                             <button onClick={addColumn}>Add Column</button>
                             {columns.map((col, index) => (
@@ -150,7 +153,7 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                                         type="number"
                                         value={col.width}
                                         onChange={(e) => updateColumnWidth(index, e.target.value)}
-                                        min="10"
+                                        min="20"
                                         max="100"
                                     />
                                     <button onClick={() => removeColumn(index)}>✖</button>
