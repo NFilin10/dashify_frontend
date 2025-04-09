@@ -26,11 +26,11 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
     };
 
     const widgetElements = [
-        // { name: "News", icon: <FaRegNewspaper style={style} />, type: "news" },
+        { name: "News", icon: <FaRegNewspaper style={style} />, type: "news" },
         { name: "Weather", icon: <TiWeatherPartlySunny style={style} />, type: "weather" },
         { name: "Custom links", icon: <CiLink style={style} />, type: "customLinks" },
         { name: "Image carousel",  icon: <FaImage style={style} />, type: "imageCarousel" },
-        // { name: "Todo list", icon: <LuListTodo style={style} />, type: "todoList" },
+        { name: "Todo list", icon: <LuListTodo style={style} />, type: "todoList" },
         { name: "Calendar", icon: <FaRegCalendarAlt style={style} />, type: "calendar" },
         { name: "Clock", icon: <FaClock style={style} />, type: "clock" },
         { name: "Calculator", icon: <FaCalculator style={style} />, type: "calculator" },

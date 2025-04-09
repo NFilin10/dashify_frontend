@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from "react";
 import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
+import NewsWidget from "@/components/ui/Widgets/News/News.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);

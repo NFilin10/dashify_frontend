@@ -11,6 +11,7 @@ import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.j
 import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
+import News from "@/components/ui/Widgets/News/News.jsx";
 
 const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -91,6 +92,7 @@ const ColumnLayout = ({ columns, setColumns }) => {
         weather: Weather,
         note: Note,
         customLinks: customLinks,
+        news: News
     };
 
     const handleDropWidget = (columnId) => {

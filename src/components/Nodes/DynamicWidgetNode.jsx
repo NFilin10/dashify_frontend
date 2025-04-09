@@ -10,6 +10,7 @@ import ImageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.j
 import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
+import News from "@/components/ui/Widgets/News/News.jsx";
 
 const widgetMap = {
     calculator: Calculator,
@@ -20,6 +21,8 @@ const widgetMap = {
     searchBar: SearchBar,
     note: Note,
     customLinks: CustomLinks,
+    news: News
+
 };
 
 const DynamicWidgetNode = ({ data }) => {
@@ -30,6 +33,8 @@ const DynamicWidgetNode = ({ data }) => {
         padding: '4px',
         borderRadius: '8px',
         position: 'relative',
+        width: data.type === 'news' ? '800px' : '',
+
     };
 
     return (
