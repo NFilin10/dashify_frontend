@@ -9,6 +9,7 @@ import Style from "./ColumnLayout.module.css";
 import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
 import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
+import Note from "@/components/ui/Widgets/Note/Note.jsx";
 
 const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -86,7 +87,8 @@ const ColumnLayout = ({ columns, setColumns }) => {
         searchBar: SearchBar,
         clock: ClockWidget,
         imageCarousel: imageCarousel,
-        weather: Weather
+        weather: Weather,
+        note: Note
     };
 
     const handleDropWidget = (columnId) => {

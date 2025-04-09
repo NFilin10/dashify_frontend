@@ -7,6 +7,7 @@ import { DnDProvider } from "@/contexts/DnDContext.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import { useState, useRef, useEffect } from "react";
 import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
+import Note from "@/components/ui/Widgets/Note/Note.jsx";
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -56,7 +57,6 @@ function App() {
                     setColumns={setColumns}
                     workspaceRef={workspaceRef}  // Pass workspaceRef to Navbar
                 />
-                {/*<WeatherWidget/>*/}
                 {isSidebarOpen && (
                     <WidgetMenu
                         sidebarRef={sidebarRef}

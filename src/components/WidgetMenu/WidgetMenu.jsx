@@ -13,6 +13,8 @@ import { FaCalculator } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import { TbNewSection } from "react-icons/tb";
 import { useDnD } from "@/contexts/DnDContext.jsx";
+import { FaRegStickyNote } from "react-icons/fa";
+
 
 function WidgetMenu({ sidebarRef, closeSidebar }) {
     const style = { fontSize: "18px" };
@@ -34,6 +36,7 @@ function WidgetMenu({ sidebarRef, closeSidebar }) {
         { name: "Clock", icon: <FaClock style={style} />, type: "clock" },
         { name: "Calculator", icon: <FaCalculator style={style} />, type: "calculator" },
         { name: "Search bar", icon: <IoSearch style={style} />, type: "searchBar" },
+        { name: "Note", icon: <FaRegStickyNote style={style} />, type: "note" },
     ];
 
     return (

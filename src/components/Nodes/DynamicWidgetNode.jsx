@@ -8,6 +8,7 @@ import Weather from '@/components/ui/Widgets/Weather/Weather.jsx';
 import { Calendar } from "@/components/ui/Widgets/calendar.jsx";
 import ImageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
+import Note from "@/components/ui/Widgets/Note/Note.jsx";
 
 const widgetMap = {
     calculator: Calculator,
@@ -16,6 +17,7 @@ const widgetMap = {
     calendar: Calendar,
     imageCarousel: ImageCarousel,
     searchBar: SearchBar,
+    note: Note,
 };
 
 const DynamicWidgetNode = ({ data }) => {
