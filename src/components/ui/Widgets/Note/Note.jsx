@@ -12,19 +12,8 @@ const Note = () => {
         localStorage.setItem("quick-note", note);
     }, [note]);
 
-    const themeStyles = {
-        '--bg': theme === 'dark' ? '#1a1a1a' : '#f9f9f9',
-        '--text': theme === 'dark' ? '#f1f1f1' : '#1a1a1a',
-        '--card-bg': theme === 'dark' ? '#2c2c2c' : '#ffffff',
-        '--textarea-bg': theme === 'dark' ? '#1f1f1f' : '#ffffff',
-        '--textarea-border': theme === 'dark' ? '#444' : '#ccc',
-        '--shadow': theme === 'dark'
-            ? '0 4px 12px rgba(0, 0, 0, 0.4)'
-            : '0 4px 12px rgba(0, 0, 0, 0.1)',
-    };
-
     return (
-        <div className={styles.widget} style={themeStyles}>
+        <div className={`${styles.widget} ${theme === 'dark' ? styles.dark : ''}`}>
             <h2 className={styles.title}>📝 Quick Note</h2>
             <textarea
                 className={styles.textarea}

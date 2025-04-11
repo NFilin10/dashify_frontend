@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useState } from 'react';
+import React, { useRef, useCallback } from 'react';
 import {
     ReactFlow,
     ReactFlowProvider,
@@ -14,9 +14,7 @@ import '@xyflow/react/dist/style.css';
 import { useDnD } from '@/contexts/DnDContext.jsx';
 import DynamicWidgetNode from "@/components/Nodes/DynamicWidgetNode.jsx";
 
-const initialNodes = [
-
-];
+const initialNodes = [];
 
 let id = 2;
 const getId = () => `dndnode_${id++}`;

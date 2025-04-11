@@ -1,16 +1,12 @@
 import "./App.css";
-import { ThemeProvider, useTheme } from "@/components/Theme/theme-provider";  // Import useTheme from theme-provider
+import { ThemeProvider, useTheme } from "@/components/Theme/theme-provider";
 import WidgetSection from "@/components/FreePosLayout/FreePosLayout.jsx";
 import ColumnLayout from "@/components/ColumnLayout/ColumnLayout.jsx";
 import WidgetMenu from "@/components/WidgetMenu/WidgetMenu.jsx";
 import { DnDProvider } from "@/contexts/DnDContext.jsx";
 import Navbar from "@/components/common/Navbar/Navbar.jsx";
 import { useState, useRef, useEffect } from "react";
-import WeatherWidget from "@/components/ui/Widgets/Weather/Weather.jsx";
-import Note from "@/components/ui/Widgets/Note/Note.jsx";
-import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
-import NewsWidget from "@/components/ui/Widgets/News/News.jsx";
-import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
+
 
 function App() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -23,7 +19,6 @@ function App() {
         { id: "Column3", title: "+", cards: [], width: 50 },
     ]);
 
-    // Access the theme using useTheme hook
     const { theme } = useTheme();
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -38,13 +33,12 @@ function App() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    // Update workspace background color based on theme change
     useEffect(() => {
         if (workspaceRef.current) {
             if (theme === "dark") {
-                workspaceRef.current.style.backgroundColor = "#000000";  // Black for dark mode
+                workspaceRef.current.style.backgroundColor = "#000000";
             } else if (theme === "light") {
-                workspaceRef.current.style.backgroundColor = "#ffffff";  // White for light mode
+                workspaceRef.current.style.backgroundColor = "#ffffff";
             }
         }
     }, [theme]);
@@ -66,7 +60,7 @@ function App() {
                         closeSidebar={() => setIsSidebarOpen(false)}
                     />
                 )}
-                <div className="workspace" ref={workspaceRef}>
+                <div ref={workspaceRef}>
                     {isSwitchOn ? (
                         <ColumnLayout columns={columns} setColumns={setColumns} />
                     ) : (

@@ -1,10 +1,8 @@
 import React from 'react';
 import { Handle, Position } from '@xyflow/react';
 import { X } from 'lucide-react';
-
 import Calculator from '@/components/ui/Widgets/Calculator/Calculator.jsx';
 import Clock from '@/components/ui/Widgets/Clock/Clock.jsx';
-import Weather from '@/components/ui/Widgets/Weather/Weather.jsx';
 import { Calendar } from "@/components/ui/Widgets/calendar.jsx";
 import ImageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
 import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
@@ -12,11 +10,13 @@ import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
 import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
+import WeatherWidget from "@/components/ui/Widgets/Weather/WeatherWidget.jsx";
+import Styles from './DynamicWidgetNode.module.css'
 
 const widgetMap = {
     calculator: Calculator,
     clock: Clock,
-    weather: Weather,
+    weather: WeatherWidget,
     calendar: Calendar,
     imageCarousel: ImageCarousel,
     searchBar: SearchBar,
@@ -32,25 +32,13 @@ const DynamicWidgetNode = ({ data }) => {
 
     const containerStyle = {
         backgroundColor: data.type === 'calendar' ? '#fff' : 'transparent',
-        padding: '4px',
-        borderRadius: '8px',
-        position: 'relative',
         width: data.type === 'news' ? '800px' : '',
-
     };
 
     return (
         <div style={containerStyle}>
             <Handle type="target" position={Position.Top} />
-            <div
-                style={{
-                    position: 'absolute',
-                    top: 4,
-                    right: 4,
-                    cursor: 'pointer',
-                    padding: '2px',
-                    zIndex: 10,
-                }}
+            <div className={Styles.closeBtn}
                 onClick={() => data.onRemove?.(data.id)}
                 title="Remove node"
             >

@@ -8,11 +8,11 @@ import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
 import Style from "./ColumnLayout.module.css";
 import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
 import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
-import Weather from "@/components/ui/Widgets/Weather/Weather.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
 import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
+import WeatherWidget from "@/components/ui/Widgets/Weather/WeatherWidget.jsx";
 
 const ColumnLayout = ({ columns, setColumns }) => {
     const [widgetType, setWidgetType] = useDnD();
@@ -90,7 +90,7 @@ const ColumnLayout = ({ columns, setColumns }) => {
         searchBar: SearchBar,
         clock: ClockWidget,
         imageCarousel: imageCarousel,
-        weather: Weather,
+        weather: WeatherWidget,
         note: Note,
         customLinks: customLinks,
         news: News,

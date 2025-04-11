@@ -1,6 +1,3 @@
-
-
-
 .widgetElement{
     display: flex;
     align-items: center;
@@ -16,7 +13,6 @@
     flex-direction: column;
     margin-top: 40px;
 }
-
 
 .sidebar {
     position: fixed;
@@ -43,10 +39,10 @@
 }
 
 .widgetItem {
+    cursor: grab;
     display: flex;
     align-items: center;
     gap: 10px;
-    cursor: pointer;
     padding: 8px;
     border-radius: 4px;
     transition: background-color 0.2s;
@@ -81,7 +77,6 @@
     align-items: center;
     gap: 10px;
     padding: 10px 0;
-    cursor: pointer;
 }
 
 .closeButton {

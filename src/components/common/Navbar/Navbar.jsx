@@ -19,13 +19,11 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useTheme } from "@/components/Theme/theme-provider"; // Import the useTheme hook
 
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns, workspaceRef }) {
-    const { theme } = useTheme();  // Access the current theme (dark or light)
     const [showDropdown, setShowDropdown] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
-    const [color, setColor] = useState(""); // Default color based on theme
+    const [color, setColor] = useState("");
 
     const dropdownRef = useRef(null);
 
@@ -42,9 +40,8 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
 
     useEffect(() => {
         if (color && workspaceRef.current) {
-            // Set the background color and clear the background image
             workspaceRef.current.style.backgroundColor = color;
-            workspaceRef.current.style.backgroundImage = "";  // Clear the background image
+            workspaceRef.current.style.backgroundImage = "";
         }
     }, [color, workspaceRef]);
 
@@ -95,12 +92,11 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
         const reader = new FileReader();
         reader.onloadend = () => {
             if (workspaceRef.current) {
-                // Set the background image and clear the background color
                 workspaceRef.current.style.backgroundImage = `url(${reader.result})`;
                 workspaceRef.current.style.backgroundSize = "cover";
                 workspaceRef.current.style.backgroundRepeat = "no-repeat";
                 workspaceRef.current.style.backgroundPosition = "center";
-                workspaceRef.current.style.backgroundColor = "";  // Clear the background color
+                workspaceRef.current.style.backgroundColor = "";
             }
         };
         reader.readAsDataURL(file);
@@ -163,9 +159,9 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                     )}
 
                     {showColorPicker && (
-                        <div className={Styles.colorPickerWrapper}>
+                        <div className={`${Styles.colorPickerWrapper} text-foreground shadow-md bg-background`}>
                             <HexColorPicker color={color} onChange={setColor} />
-                            <button className={Styles.closePicker} onClick={() => setShowColorPicker(false)}>
+                            <button className={`${Styles.closePicker} text-foreground shadow-md bg-background`} onClick={() => setShowColorPicker(false)}>
                                 Close
                             </button>
                         </div>

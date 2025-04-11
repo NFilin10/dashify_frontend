@@ -1,24 +1,22 @@
 import React from 'react';
-import Styles from './WidgetMenu.module.css'; // Assuming you have a CSS module for styling
-import { IoClose } from "react-icons/io5"; // Close icon for button
+import Styles from './WidgetMenu.module.css';
+import { IoClose } from "react-icons/io5";
 import { LuListTodo } from "react-icons/lu";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { CiLink } from "react-icons/ci";
 import { FaImage } from "react-icons/fa";
 import { FaRegNewspaper } from "react-icons/fa";
-import { FaCode } from "react-icons/fa";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { FaClock } from "react-icons/fa";
 import { FaCalculator } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
-import { TbNewSection } from "react-icons/tb";
 import { useDnD } from "@/contexts/DnDContext.jsx";
 import { FaRegStickyNote } from "react-icons/fa";
 
 
 function WidgetMenu({ sidebarRef, closeSidebar }) {
     const style = { fontSize: "18px" };
-    const [_, setType] = useDnD(); // Context to set the widget type
+    const [_, setType] = useDnD();
 
     const onDragStart = (event, nodeType) => {
         setType(nodeType);

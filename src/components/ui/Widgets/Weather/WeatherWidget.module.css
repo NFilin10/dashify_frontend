@@ -1,55 +1,35 @@
 .widget {
     padding: 1rem;
-    background: var(--bg);
     border-radius: 1rem;
     box-shadow: var(--shadow);
-    color: var(--text);
     font-family: system-ui, sans-serif;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.form {
+    display: flex;
+    gap: 30px;
 }
 
 .input {
-    background-color: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--text);
     border-radius: 5px;
     padding: 0.4rem;
-}
-
-.button {
-    background-color: var(--button-bg);
-    color: var(--button-text);
-}
-
-.button:disabled {
-    background-color: var(--button-disabled);
-}
-
-.error {
-    color: var(--error);
-}
-
-.info {
-    background: var(--card-bg);
-    box-shadow: var(--shadow);
-}
-
-.input {
-    background-color: var(--input-bg);
     border: 1px solid var(--input-border);
+    background-color: var(--input-bg);
     color: var(--text);
 }
 
 .button {
+    border-radius: 8px;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    cursor: pointer;
     background-color: var(--button-bg);
     color: var(--button-text);
 }
 
 .button:disabled {
     background-color: var(--button-disabled);
-}
-
-.error {
-    color: var(--error);
 }
 
 .info {
@@ -58,9 +38,33 @@
     margin-top: 10px;
     background: var(--card-bg);
     box-shadow: var(--shadow);
+    color: var(--text);
 }
 
-.form{
-    display: flex;
-    gap: 30px;
+.error {
+    color: #ff4d4f;
+}
+
+.light {
+    --bg: #f5f5f5;
+    --card-bg: #ffffff;
+    --text: #1a1a1a;
+    --input-bg: #ffffff;
+    --input-border: #ccc;
+    --button-bg: #e0e0e0;
+    --button-text: #1a1a1a;
+    --button-disabled: #ccc;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+    --bg: #1a1a1a;
+    --card-bg: #2b2b2b;
+    --text: #e0e0e0;
+    --input-bg: #2b2b2b;
+    --input-border: #444;
+    --button-bg: #333;
+    --button-text: #fff;
+    --button-disabled: #444;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }

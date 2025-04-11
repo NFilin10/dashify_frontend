@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
-    background-color: var(--carousel-bg, #fff);
+    background-color: var(--carousel-bg);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     border-radius: 10px;
     padding: 20px;
@@ -18,16 +18,18 @@
     align-items: center;
     justify-content: center;
     border-radius: 10px;
-    box-shadow: var(--img-shadow, 0px 4px 10px rgba(0, 0, 0, 0.1));
+    box-shadow: var(--img-shadow);
     transition: box-shadow 0.3s ease;
+    max-width: 500px;
+    max-height: 500px;
 }
 
 .removeBtn {
     width: 120px;
     margin-top: 15px;
     padding: 10px 15px;
-    background-color: var(--btn-bg, #ff4d4d);
-    color: var(--btn-text, #fff);
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
     font-size: 1rem;
     border: none;
     border-radius: 8px;
@@ -36,23 +38,47 @@
 }
 
 .removeBtn:hover {
-    background-color: var(--btn-bg-hover, #d73a3a);
+    background-color: var(--btn-bg-hover);
     transform: scale(1.05);
 }
 
 input[type="file"] {
-    background-color: var(--input-bg, #f0f0f0);
+    background-color: var(--input-bg);
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid var(--input-border, #ddd);
-    color: var(--input-text, #333);
+    border: 1px solid var(--input-border);
+    color: var(--input-text);
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 input[type="file"]:hover {
-    background-color: var(--input-bg-hover, #e0e0e0);
+    background-color: var(--input-bg-hover);
+}
+
+.light {
+    --carousel-bg: #fff;
+    --img-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    --btn-bg: #ff4d4d;
+    --btn-bg-hover: #d73a3a;
+    --btn-text: #fff;
+    --input-bg: #f0f0f0;
+    --input-bg-hover: #e0e0e0;
+    --input-border: #ddd;
+    --input-text: #333;
+}
+
+.dark {
+    --carousel-bg: #333;
+    --img-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    --btn-bg: #ff4d4d;
+    --btn-bg-hover: #d73a3a;
+    --btn-text: #fff;
+    --input-bg: #444;
+    --input-bg-hover: #555;
+    --input-border: #666;
+    --input-text: #fff;
 }
 
 @media (max-width: 768px) {

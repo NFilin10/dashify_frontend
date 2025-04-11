@@ -5,6 +5,7 @@
     border-radius: 1rem;
     max-width: 800px;
     margin: auto;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .form {
@@ -21,16 +22,18 @@
     border: 1px solid var(--input-border);
     background: var(--card-bg);
     color: var(--text);
+    transition: border 0.3s, background 0.3s;
 }
 
 .button {
     padding: 0.75rem 1.25rem;
     font-weight: bold;
-    background: #4b5563;
-    color: white;
+    background: var(--button-bg);
+    color: var(--button-text);
     border: none;
     border-radius: 0.75rem;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .grid {
@@ -63,12 +66,12 @@
 .iconBox {
     width: 70px;
     height: 70px;
-    background: var(--card-bg);
+    background: var(--icon-bg);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 0.5rem;
 }
 
@@ -87,23 +90,38 @@
     position: absolute;
     top: -6px;
     right: -6px;
-    /*background: var(--close-bg);*/
-    border: none;
-    /*border-radius: 50%;*/
     width: 20px;
     height: 20px;
     font-size: 14px;
     font-weight: bold;
-    /*color: #333;*/
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);*/
     transition: background 0.2s;
 }
 
 .closeBtn:hover {
     background: #ff5f5f;
     color: white;
+}
+
+.light {
+    --bg: #f5f5f5;
+    --text: #121212;
+    --card-bg: #ffffff;
+    --input-border: #ccc;
+    --button-bg: #4b5563;
+    --button-text: white;
+    --icon-bg: #f0f0f0;
+}
+
+.dark {
+    --bg: #121212;
+    --text: #f5f5f5;
+    --card-bg: #1f1f1f;
+    --input-border: #333;
+    --button-bg: #4b5563;
+    --button-text: white;
+    --icon-bg: #444;
 }

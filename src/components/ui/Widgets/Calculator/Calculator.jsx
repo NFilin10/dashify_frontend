@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { useTheme } from "../../../Theme/theme-provider.jsx"; // Import the theme context
-import styles from "./Calculator.module.css"; // Import the CSS Module
+import { useTheme } from "../../../Theme/theme-provider.jsx";
+import styles from "./Calculator.module.css";
 
 export default function Calculator() {
-    const { theme } = useTheme(); // Get the current theme from the context
+    const { theme } = useTheme();
     const [currentValue, setCurrentValue] = useState("0");
     const [previousValue, setPreviousValue] = useState(null);
     const [operation, setOperator] = useState(null);
 
-    // Calculator operations
     const handleClick = (e) => {
         const getSameValue = e.currentTarget.value;
         switch (getSameValue) {
@@ -87,13 +86,7 @@ export default function Calculator() {
     };
 
     return (
-        <div
-            className={styles.calcWrapper}
-            style={{
-                "--calc-bg": theme === "dark" ? "#333" : "#fff",
-            }}
-        >
-        {/* This outputs the value to a paragraph */}
+        <div className={`${styles.calcWrapper} ${styles[theme]}`}>
             <p
                 id={styles.resultScreen}
                 className={theme === "dark" ? "bg-gray-800 text-white" : "bg-gray-200 text-black"}
@@ -102,75 +95,91 @@ export default function Calculator() {
                 {operation}
                 {currentValue}
             </p>
-            {/* First Row */}
             <div className={`${styles.calcBtns} ${styles.firstRow}`}>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="clearAll" onClick={handleClick}>
+                <button
+                    className={`${styles.calcBtn} ${styles[theme]}`}
+                    value="clearAll"
+                    onClick={handleClick}
+                >
                     AC
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="clearEntry" onClick={handleClick}>
+                <button
+                    className={`${styles.calcBtn} ${styles[theme]}`}
+                    value="clearEntry"
+                    onClick={handleClick}
+                >
                     CE
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="%" onClick={handleClick}>
+                <button
+                    className={`${styles.calcBtn} ${styles[theme]}`}
+                    value="%"
+                    onClick={handleClick}
+                >
                     %
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="/" onClick={handleClick}>
+                <button
+                    className={`${styles.calcBtn} ${styles[theme]}`}
+                    value="/"
+                    onClick={handleClick}
+                >
                     ÷
                 </button>
             </div>
-            {/* Second Row */}
             <div className={styles.calcBtns}>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="7" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="7" onClick={handleClick}>
                     7
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="8" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="8" onClick={handleClick}>
                     8
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="9" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="9" onClick={handleClick}>
                     9
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="*" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="*" onClick={handleClick}>
                     x
                 </button>
             </div>
-            {/* Third Row */}
             <div className={styles.calcBtns}>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="4" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="4" onClick={handleClick}>
                     4
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="5" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="5" onClick={handleClick}>
                     5
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="6" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="6" onClick={handleClick}>
                     6
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="-" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="-" onClick={handleClick}>
                     -
                 </button>
             </div>
-            {/* Fourth Row */}
             <div className={styles.calcBtns}>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="1" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="1" onClick={handleClick}>
                     1
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="2" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="2" onClick={handleClick}>
                     2
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="3" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="3" onClick={handleClick}>
                     3
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="+" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="+" onClick={handleClick}>
                     +
                 </button>
             </div>
-            {/* Fifth Row */}
             <div className={styles.calcBtns}>
-                <button id={styles.bigZero} className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="0" onClick={handleClick}>
+                <button
+                    id={styles.bigZero}
+                    className={`${styles.calcBtn} ${styles[theme]}`}
+                    value="0"
+                    onClick={handleClick}
+                >
                     0
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="." onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="." onClick={handleClick}>
                     .
                 </button>
-                <button className={`${styles.calcBtn} ${theme === "dark" ? "bg-gray-600" : "bg-gray-300"}`} value="=" onClick={handleClick}>
+                <button className={`${styles.calcBtn} ${styles[theme]}`} value="=" onClick={handleClick}>
                     =
                 </button>
             </div>

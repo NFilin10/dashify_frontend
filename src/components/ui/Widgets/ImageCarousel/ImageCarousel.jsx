@@ -4,9 +4,10 @@ import { Carousel } from 'react-responsive-carousel';
 import Styles from './ImageCarousel.module.css';
 import { useTheme } from '../../../Theme/theme-provider.jsx';
 
-function ImageCarouselNode({ data }) {
+
+function ImageCarousel() {
     const [images, setImages] = useState([]);
-    const { theme } = useTheme(); // Get the current theme (light/dark)
+    const { theme } = useTheme();
 
     const handleImageUpload = (event) => {
         const files = event.target.files;
@@ -18,21 +19,10 @@ function ImageCarouselNode({ data }) {
         setImages(prevImages => prevImages.filter((_, idx) => idx !== index));
     };
 
-    // Apply theme-based styles
-    const themeStyles = {
-        '--carousel-bg': theme === 'dark' ? '#333' : '#fff',
-        '--img-shadow': theme === 'dark' ? '0px 4px 10px rgba(255, 255, 255, 0.2)' : '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        '--btn-bg': theme === 'dark' ? '#ff4d4d' : '#ff4d4d',
-        '--btn-bg-hover': theme === 'dark' ? '#d73a3a' : '#d73a3a',
-        '--btn-text': theme === 'dark' ? '#fff' : '#fff',
-        '--input-bg': theme === 'dark' ? '#444' : '#f0f0f0',
-        '--input-bg-hover': theme === 'dark' ? '#555' : '#e0e0e0',
-        '--input-border': theme === 'dark' ? '#666' : '#ddd',
-        '--input-text': theme === 'dark' ? '#fff' : '#333',
-    };
+    const themeClass = theme === 'dark' ? 'dark' : 'light';
 
     return (
-        <div className={Styles.carouselContainer} style={themeStyles}>
+        <div className={`${Styles.carouselContainer} ${Styles[themeClass]}`}>
             <Carousel>
                 {images.map((image, index) => (
                     <div key={index} className={Styles.imgElem}>
@@ -48,10 +38,10 @@ function ImageCarouselNode({ data }) {
                 accept="image/*"
                 multiple
                 onChange={handleImageUpload}
-                style={{ marginTop: '20px' }}
+                className={Styles.fileInput}
             />
         </div>
     );
 }
 
-export default ImageCarouselNode;
+export default ImageCarousel;
