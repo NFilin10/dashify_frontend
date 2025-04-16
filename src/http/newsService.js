@@ -1,4 +1,5 @@
-const API_KEY = process.env.NEWS_API_KEY;
+const API_KEY = import.meta.env.VITE_NEWS_API_KEY;
+
 
 export const fetchNewsArticles = async (pageSize = 10, country = 'us') => {
     const response = await fetch(

@@ -1,4 +1,4 @@
-const API_KEY = process.env.WEATHER_API_KEY;
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
 
 
 export async function getCoordinates(cityName) {
