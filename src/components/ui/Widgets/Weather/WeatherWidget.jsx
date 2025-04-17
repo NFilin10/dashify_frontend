@@ -3,18 +3,21 @@ import { useWeather } from "@/hooks/useWeather.js";
 import { useTheme } from "../../../Theme/theme-provider";
 import styles from "./WeatherWidget.module.css";
 
-
-function WeatherWidget() {
+function WeatherWidget({ id }) {
     const { theme } = useTheme();
     const [city, setCity] = useState("");
-    const { weather, loading, error, fetchWeather } = useWeather();
+    const { weather, loading, error, fetchWeather } = useWeather(id);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetchWeather(city);
+        if (city.trim()) {
+            fetchWeather(city);
+        }
     };
 
     const themeClass = theme === "dark" ? styles.dark : styles.light;
+
+
 
     return (
         <div className={`${styles.widget} ${themeClass}`}>

@@ -1,20 +1,15 @@
-const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+import axios from "axios";
 
+const API = "http://localhost:8080/widgets/weather";
 
-export async function getCoordinates(cityName) {
-    const res = await fetch(
-        `https://nominatim.openstreetmap.org/search?city=${cityName}&format=json&limit=1`
-    );
-    const data = await res.json();
-    if (!data.length) throw new Error("City not found");
-    return { lat: data[0].lat, lon: data[0].lon };
+// Save city for a widget
+export async function saveCity(widget_id, city) {
+    const response = await axios.post(`${API}/save-city`, { widget_id, city });
+    return response.data;
 }
 
-export async function getWeather(lat, lon) {
-    const res = await fetch(
-        `https://api.weatherbit.io/v2.0/current?lat=${lat}&lon=${lon}&key=${API_KEY}`
-    );
-    const data = await res.json();
-    if (!data.data?.length) throw new Error("No weather data found.");
-    return data.data[0];
+// Fetch weather for a widget_id
+export async function getWeather(widget_id) {
+    const response = await axios.get(`${API}/get-weather`, { params: { widget_id } });
+    return response.data;
 }
