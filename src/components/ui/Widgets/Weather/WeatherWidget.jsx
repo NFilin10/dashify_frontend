@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useWeather } from "@/hooks/useWeather.js";
 import { useTheme } from "../../../Theme/theme-provider";
 import styles from "./WeatherWidget.module.css";
@@ -6,7 +6,7 @@ import styles from "./WeatherWidget.module.css";
 function WeatherWidget({ id }) {
     const { theme } = useTheme();
     const [city, setCity] = useState("");
-    const { weather, loading, error, fetchWeather } = useWeather(id);
+    const { weather, loading, error, fetchWeather, loadSavedWeather } = useWeather(id);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +17,10 @@ function WeatherWidget({ id }) {
 
     const themeClass = theme === "dark" ? styles.dark : styles.light;
 
+    useEffect(() => {
+        console.log("here" + id)
+        loadSavedWeather(city);
+    }, [id]);
 
 
     return (

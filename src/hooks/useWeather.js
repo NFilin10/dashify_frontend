@@ -36,9 +36,9 @@ export function useWeather(widgetId) {
         }
     };
 
-    useEffect(() => {
-        loadSavedWeather();
-    }, [widgetId]);
 
-    return { weather, loading, error, fetchWeather };
+
+
+
+    return { weather, loading, error, fetchWeather, loadSavedWeather };
 }
