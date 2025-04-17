@@ -11,7 +11,7 @@ import CustomLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
 import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
 import WeatherWidget from "@/components/ui/Widgets/Weather/WeatherWidget.jsx";
-import Styles from './DynamicWidgetNode.module.css'
+import Styles from './DynamicWidgetNode.module.css';
 
 const widgetMap = {
     calculator: Calculator,
@@ -24,7 +24,6 @@ const widgetMap = {
     customLinks: CustomLinks,
     news: News,
     todoList: ToDo
-
 };
 
 const DynamicWidgetNode = ({ data }) => {
@@ -39,8 +38,8 @@ const DynamicWidgetNode = ({ data }) => {
         <div style={containerStyle}>
             <Handle type="target" position={Position.Top} />
             <div className={Styles.closeBtn}
-                onClick={() => data.onRemove?.(data.id)}
-                title="Remove node"
+                 onClick={() => data.onRemove?.(data.id)}
+                 title="Remove node"
             >
                 <X size={16} color="#f44336" />
             </div>
