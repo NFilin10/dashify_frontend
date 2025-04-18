@@ -3,21 +3,21 @@ import styles from "./Note.module.css";
 import { useTheme } from "../../../Theme/theme-provider.jsx";
 import { saveNote, getNote } from "@/http/noteService.js"; // Import noteService
 
-const Note = ({ id }) => {
+const Note = ({ widget_id }) => {
     const { theme } = useTheme();
     const [note, setNote] = useState("");
 
     useEffect(() => {
         const fetchNote = async () => {
             try {
-                const savedNote = await getNote(id);
+                const savedNote = await getNote(widget_id);
                 setNote(savedNote);
             } catch (err) {
                 console.error("Failed to fetch note:", err);
             }
         };
         fetchNote();
-    }, [id]);
+    }, [widget_id]);
 
     const handleChange = (e) => {
         setNote(e.target.value);
@@ -26,13 +26,13 @@ const Note = ({ id }) => {
     useEffect(() => {
         const saveNoteToBackend = async () => {
             try {
-                await saveNote(id, note);
+                await saveNote(widget_id, note);
             } catch (err) {
                 console.error("Failed to save note:", err);
             }
         };
         if (note !== "") saveNoteToBackend();
-    }, [note, id]);
+    }, [note, widget_id]);
 
     return (
         <div className={`${styles.widget} ${theme === 'dark' ? styles.dark : ''}`}>

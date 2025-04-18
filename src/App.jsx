@@ -9,7 +9,17 @@ import { useState, useRef, useEffect } from "react";
 import Login from "@/components/Login/Login.jsx";
 import Signup from "@/components/Signup/Signup.jsx";
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
-import useAuth from "@/hooks/useAuth"; // Adjust the import path if needed
+import useAuth from "@/hooks/useAuth";
+import Calculator from "@/components/ui/Widgets/Calculator/Calculator.jsx";
+import {Calendar} from "@/components/ui/Widgets/calendar.jsx";
+import SearchBar from "@/components/ui/Widgets/SearchBar/SearchBar.jsx";
+import ClockWidget from "@/components/ui/Widgets/Clock/Clock.jsx";
+import imageCarousel from "@/components/ui/Widgets/ImageCarousel/ImageCarousel.jsx";
+import WeatherWidget from "@/components/ui/Widgets/Weather/WeatherWidget.jsx";
+import Note from "@/components/ui/Widgets/Note/Note.jsx";
+import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
+import News from "@/components/ui/Widgets/News/News.jsx";
+import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx"; // Adjust the import path if needed
 
 function AppContent() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
@@ -21,10 +31,74 @@ function AppContent() {
     const isAuthenticated = useAuth();
 
     const [columns, setColumns] = useState([
-        { id: "Column1", title: "+", cards: [], width: 25 },
-        { id: "Column2", title: "+", cards: [], width: 25 },
-        { id: "Column3", title: "+", cards: [], width: 50 },
+
     ]);
+
+    useEffect(() => {
+        fetch("http://localhost:8080/columns", { credentials: "include" })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success && Array.isArray(data.columns)) {
+                    setColumns(data.columns.map(col => ({
+                        id: `Column${col.id}`,
+                        title: "+",
+                        cards: [],
+                        width: col.width
+                    })));
+                } else {
+                    console.error("Invalid data format:", data);
+                }
+            })
+            .catch(err => console.error("Error fetching columns:", err));
+    }, [isSwitchOn]);
+
+
+
+    const widgetComponents = {
+        calculator: Calculator,
+        calendar: Calendar,
+        searchBar: SearchBar,
+        clock: ClockWidget,
+        imageCarousel: imageCarousel,
+        weather: WeatherWidget,
+        note: Note,
+        customLinks: customLinks,
+        news: News,
+        todoList: ToDo
+    };
+
+    useEffect(() => {
+        fetch("http://localhost:8080/columns/all", { credentials: "include" })
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    const widgetsByColumn = {};
+
+                    data.forEach(widget => {
+                        const widgetData = {
+                            id: `widget-${widget.widget_id}`,
+                            type: widget.widget_type,
+                            Component: widgetComponents[widget.widget_type] || null,
+                        };
+                        if (!widgetsByColumn[`Column${widget.column_id}`]) {
+                            widgetsByColumn[`Column${widget.column_id}`] = [];
+                        }
+                        widgetsByColumn[`Column${widget.column_id}`].push(widgetData);
+                    });
+
+                    setColumns(prev =>
+                        prev.map(col => ({
+                            ...col,
+                            cards: widgetsByColumn[col.id] || []
+                        }))
+                    );
+                }
+            })
+            .catch(err => console.error("Error fetching widgets:", err));
+
+    }, [isSwitchOn]);
+
+
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 

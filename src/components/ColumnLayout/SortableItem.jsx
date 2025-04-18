@@ -36,9 +36,11 @@ const SortableItem = ({ id, Component, data, onRemove }) => {
                 <X size={18} color="#f44336" />
             </div>
 
-            {Component && <Component data={data} className={styles.widgetComponent} />}
+            {/* Pass the widget_id to the component */}
+            {Component && <Component data={data} widget_id={parseInt(data.id.replace("widget-", ""))} className={styles.widgetComponent} />}
         </div>
     );
 };
+
 
 export default SortableItem;

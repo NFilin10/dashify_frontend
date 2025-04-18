@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styles from './ToDo.module.css';
 import { useTheme } from '../../../Theme/theme-provider.jsx';
 
-function Todo({ id: todo_list_id }) {
+function Todo({ widget_id: todo_list_id }) {
     const { theme } = useTheme();
     const [task, setTask] = useState('');
     const [tasks, setTasks] = useState([]);

@@ -34,6 +34,16 @@ const ColumnLayout = ({ columns, setColumns }) => {
                     : col
             )
         );
+        fetch("http://localhost:8080/columns/delete", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+                widget_id: parseInt(cardId.replace("widget-", ""))
+            }),
+        })
+            .catch(err => console.error("Error deleting widget:", err));
+
     };
 
     const handleDragOver = (event) => {
@@ -64,24 +74,44 @@ const ColumnLayout = ({ columns, setColumns }) => {
 
         const activeColumn = findColumn(active.id);
         const overColumn = findColumn(over.id);
-
         if (!activeColumn || !overColumn) return;
 
+        const activeWidget = activeColumn.cards.find((c) => c.id === active.id);
+        if (!activeWidget) return;
+
         setColumns((prevColumns) => {
-            let activeWidget = activeColumn.cards.find((c) => c.id === active.id);
-            if (!activeWidget) return prevColumns;
+            let newColumns = prevColumns.map((col) => {
+                let cards = [...col.cards];
+                if (col.cards.some(c => c.id === active.id)) {
+                    cards = cards.filter((c) => c.id !== active.id);
+                }
+                return { ...col, cards };
+            });
 
-            let newColumns = prevColumns.map((col) => ({
-                ...col,
-                cards: col.id === activeColumn.id ? col.cards.filter((c) => c.id !== active.id) : col.cards,
-            }));
+            let targetColumn = newColumns.find((c) => c.id === overColumn.id);
+            let overIndex = targetColumn.cards.findIndex((c) => c.id === over.id);
+            if (overIndex === -1) overIndex = targetColumn.cards.length;
 
-            return newColumns.map((col) =>
-                col.id === overColumn.id
-                    ? { ...col, cards: [...col.cards, activeWidget] }
-                    : col
-            );
+            targetColumn.cards.splice(overIndex, 0, activeWidget);
+
+            return newColumns.map(col => col.id === targetColumn.id ? targetColumn : col);
         });
+
+        const new_column_id = parseInt(overColumn.id.replace("Column", ""));
+        const widget_id = parseInt(active.id.replace("widget-", ""));
+        const targetIndex = overColumn.cards.findIndex((c) => c.id === over.id);
+
+        fetch("http://localhost:8080/columns/update", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+                widget_id,
+                new_column_id,
+                new_position: targetIndex === -1 ? overColumn.cards.length - 1 : targetIndex
+            }),
+        })
+            .catch(err => console.error("Error updating widget position:", err));
     };
 
     const widgetComponents = {
@@ -100,20 +130,43 @@ const ColumnLayout = ({ columns, setColumns }) => {
     const handleDropWidget = (columnId) => {
         if (!widgetType) return;
 
-        const newWidget = {
-            id: `${widgetType}-${Date.now()}`,
-            type: widgetType,
-            Component: widgetComponents[widgetType] || null,
-        };
+        const currentColumn = columns.find(col => col.id === columnId);
+        const position = currentColumn ? currentColumn.cards.length : 0;
 
-        setColumns((prevColumns) =>
-            prevColumns.map((col) =>
-                col.id === columnId ? { ...col, cards: [...col.cards, newWidget] } : col
-            )
-        );
+        fetch("http://localhost:8080/columns/add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify({
+                column_id: parseInt(columnId.replace("Column", "")),
+                type: widgetType,
+                position: position
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.widgetId) {
+                    const newWidget = {
+                        id: `widget-${data.widgetId}`,  // assuming server responds with `widget.id`
+                        type: widgetType,
+                        Component: widgetComponents[widgetType] || null,
+                    };
+
+                    setColumns(prevColumns =>
+                        prevColumns.map(col =>
+                            col.id === columnId ? { ...col, cards: [...col.cards, newWidget] } : col
+                        )
+                    );
+                } else {
+                    console.error("Failed to add widget:", data);
+                }
+            })
+            .catch(err => console.error("Error saving widget:", err));
 
         setWidgetType(null);
     };
+
+
 
     const sensors = useSensors(
         useSensor(PointerSensor),

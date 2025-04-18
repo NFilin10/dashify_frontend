@@ -45,22 +45,60 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
 
     const addColumn = () => {
         if (columns.length < 5) {
-            setColumns([...columns, { id: `Column${columns.length + 1}`, title: "+", cards: [], width: 100 / (columns.length + 1) }]);
+            const newColumn = {
+                id: `Column${columns.length + 1}`,
+                title: "+",
+                cards: [],
+                width: 100 / (columns.length + 1),
+                position: columns.length + 1 // Correctly set position to the next available number
+            };
+
+            // Add the column locally
+            setColumns([...columns, newColumn]);
+
+            // Send the new column to the backend
+            fetch("http://localhost:8080/columns", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(newColumn),
+                credentials: "include"
+            }).catch(err => console.error("Error adding column:", err));
         }
     };
+
+
 
     const removeColumn = (index) => {
         if (columns.length > 1) {
+            const columnToRemove = columns[index];
             const newColumns = columns.filter((_, i) => i !== index);
+
+            // Remove the column locally
             setColumns(newColumns.map((col, i) => ({ ...col, id: `Column${i + 1}`, title: "+" })));
+
+            // Remove the column from the backend
+            fetch(`http://localhost:8080/columns/${columnToRemove.id.replace("Column", "")}`, {
+                method: "DELETE",
+                credentials: "include"
+            }).catch(err => console.error("Error removing column:", err));
         }
     };
 
-    const updateColumnWidth = (index, value) => {
-        let totalWidth = columns.reduce((sum, col, i) => (i === index ? sum : sum + col.width), 0);
-        let newWidth = Math.max(10, Math.min(100 - totalWidth, Number(value)));
-        setColumns(columns.map((col, i) => (i === index ? { ...col, width: newWidth } : col)));
+
+    const updateColumnWidth = async (index, value) => {
+        const col = columns[index];
+        const newWidth = Math.max(10, Math.min(100, Number(value)));
+
+        await fetch(`http://localhost:8080/columns/${col.id.replace("Column", "")}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ width: newWidth, position: index + 1 }),
+            credentials: "include"
+        });
+
+        setColumns(columns.map((col, i) => i === index ? { ...col, width: newWidth } : col));
     };
+
 
     return (
         <div className={`${Styles.navContainer} text-foreground shadow-md`}>
