@@ -1,4 +1,3 @@
-// hooks/useNews.js
 import { useState, useEffect } from 'react';
 import { fetchNewsArticles } from '../http/newsService.js';
 

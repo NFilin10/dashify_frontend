@@ -35,7 +35,7 @@ function AppContent() {
     ]);
 
     useEffect(() => {
-        fetch("http://localhost:8080/columns", { credentials: "include" })
+        fetch("http://localhost:8080/api/columns/get-columns", { credentials: "include" })
             .then(res => res.json())
             .then(data => {
                 if (data.success && Array.isArray(data.columns)) {
@@ -68,7 +68,7 @@ function AppContent() {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/columns/all", { credentials: "include" })
+        fetch("http://localhost:8080/api/columns/widgets/column-widgets", { credentials: "include" })
             .then(res => res.json())
             .then(data => {
                 if (Array.isArray(data)) {

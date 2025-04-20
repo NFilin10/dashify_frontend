@@ -1,4 +1,4 @@
-import {useState, useRef, useEffect} from "react";
+import { useState, useRef, useEffect } from "react";
 import Styles from "./Navbar.module.css";
 import { IoIosSettings } from "react-icons/io";
 import { IoMenuSharp } from "react-icons/io5";
@@ -13,22 +13,29 @@ import { useTheme } from "@/components/Theme/theme-provider";
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup, DropdownMenuItem, DropdownMenuPortal,
-    DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger,
+    DropdownMenuGroup,
+    DropdownMenuItem,
+    DropdownMenuPortal,
+    DropdownMenuSub,
+    DropdownMenuSubContent,
+    DropdownMenuSubTrigger,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import { useColumns } from "@/hooks/useColumnManagement.js";
 
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns, workspaceRef }) {
     const { theme, setTheme } = useTheme();
     const [color, setColor] = useState("");
     const [imgUrl, setImgUrl] = useState("");
-    useLayoutSettings(theme, setTheme, color, setColor, workspaceRef, setImgUrl);
+    const { handleBackgroundImageUpload, handleDeleteImage, handleApplyImage } =
+        useBackgroundImage(workspaceRef, color, setImgUrl, imgUrl);
 
-    const { handleBackgroundImageUpload, handleDeleteImage, handleApplyImage } = useBackgroundImage(workspaceRef, color, setImgUrl, imgUrl);
     const dropdownRef = useRef(null);
-
     const [showDropdown, setShowDropdown] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
+
+    useLayoutSettings(theme, setTheme, color, setColor, workspaceRef, setImgUrl);
+    const { addColumn, removeColumn, updateColumnWidth } = useColumns(columns, setColumns);
 
     useClickOutside(dropdownRef, () => {
         setShowDropdown(false);
@@ -40,80 +47,23 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
             workspaceRef.current.style.backgroundImage = "";
             workspaceRef.current.style.backgroundColor = color;
         }
-    }, [color]);
-
-
-    const addColumn = () => {
-        if (columns.length < 5) {
-            const newColumn = {
-                id: `Column${columns.length + 1}`,
-                title: "+",
-                cards: [],
-                width: 100 / (columns.length + 1),
-                position: columns.length + 1 // Correctly set position to the next available number
-            };
-
-            // Add the column locally
-            setColumns([...columns, newColumn]);
-
-            // Send the new column to the backend
-            fetch("http://localhost:8080/columns", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(newColumn),
-                credentials: "include"
-            }).catch(err => console.error("Error adding column:", err));
-        }
-    };
-
-
-
-    const removeColumn = (index) => {
-        if (columns.length > 1) {
-            const columnToRemove = columns[index];
-            const newColumns = columns.filter((_, i) => i !== index);
-
-            // Remove the column locally
-            setColumns(newColumns.map((col, i) => ({ ...col, id: `Column${i + 1}`, title: "+" })));
-
-            // Remove the column from the backend
-            fetch(`http://localhost:8080/columns/${columnToRemove.id.replace("Column", "")}`, {
-                method: "DELETE",
-                credentials: "include"
-            }).catch(err => console.error("Error removing column:", err));
-        }
-    };
-
-
-    const updateColumnWidth = async (index, value) => {
-        const col = columns[index];
-        const newWidth = Math.max(10, Math.min(100, Number(value)));
-
-        await fetch(`http://localhost:8080/columns/${col.id.replace("Column", "")}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ width: newWidth, position: index + 1 }),
-            credentials: "include"
-        });
-
-        setColumns(columns.map((col, i) => i === index ? { ...col, width: newWidth } : col));
-    };
-
+    }, [color, workspaceRef]);
 
     return (
         <div className={`${Styles.navContainer} text-foreground shadow-md`}>
             <div className={Styles.widgetsBtn} onClick={toggleSidebar}>
-                <IoMenuSharp/>
+                <IoMenuSharp />
                 Widgets
             </div>
 
             <div className={Styles.profileBtn}>
-                <Switch checked={isSwitchOn} onCheckedChange={setIsSwitchOn}/>
-                <ModeToggle/>
-                <div style={{position: "relative"}} ref={dropdownRef}>
+                <Switch checked={isSwitchOn} onCheckedChange={setIsSwitchOn} />
+                <ModeToggle />
+
+                <div style={{ position: "relative" }} ref={dropdownRef}>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <IoIosSettings style={{fontSize: "2rem", cursor: "pointer"}}/>
+                            <IoIosSettings style={{ fontSize: "2rem", cursor: "pointer" }} />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-56">
                             <DropdownMenuGroup>
@@ -121,14 +71,25 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                                     <DropdownMenuSubTrigger>Manage Colours</DropdownMenuSubTrigger>
                                     <DropdownMenuPortal>
                                         <DropdownMenuSubContent>
-                                            <DropdownMenuItem onClick={() => document.getElementById("bgUploadInput").click()}>Change background image</DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => setShowColorPicker(prev => !prev)}>Set own color</DropdownMenuItem>
-                                            <DropdownMenuItem onClick={handleApplyImage}>Set current background image</DropdownMenuItem>
-                                            <DropdownMenuItem onClick={handleDeleteImage}>Reset image</DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => document.getElementById("bgUploadInput").click()}>
+                                                Change background image
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onClick={() => setShowColorPicker(prev => !prev)}>
+                                                Set own color
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onClick={handleApplyImage}>
+                                                Set current background image
+                                            </DropdownMenuItem>
+                                            <DropdownMenuItem onClick={handleDeleteImage}>
+                                                Reset image
+                                            </DropdownMenuItem>
                                         </DropdownMenuSubContent>
                                     </DropdownMenuPortal>
                                 </DropdownMenuSub>
-                                <DropdownMenuItem onClick={() => setShowDropdown(true)}>Manage Columns</DropdownMenuItem>
+
+                                <DropdownMenuItem onClick={() => setShowDropdown(true)}>
+                                    Manage Columns
+                                </DropdownMenuItem>
                             </DropdownMenuGroup>
                         </DropdownMenuContent>
                     </DropdownMenu>
@@ -139,7 +100,13 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                             <button onClick={addColumn}>Add Column</button>
                             {columns.map((col, index) => (
                                 <div key={col.id} className={Styles.columnRow}>
-                                    <input type="number" value={col.width} onChange={(e) => updateColumnWidth(index, e.target.value)} min="20" max="100"/>
+                                    <input
+                                        type="number"
+                                        value={col.width}
+                                        onChange={(e) => updateColumnWidth(index, e.target.value)}
+                                        min="20"
+                                        max="100"
+                                    />
                                     <button onClick={() => removeColumn(index)}>✖</button>
                                 </div>
                             ))}
@@ -148,19 +115,27 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
 
                     {showColorPicker && (
                         <div className={Styles.colorPickerWrapper}>
-                            <HexColorPicker color={color} onChange={setColor}/>
-                            <button className={Styles.closePicker} onClick={() => setShowColorPicker(false)}>Close</button>
+                            <HexColorPicker color={color} onChange={setColor} />
+                            <button className={Styles.closePicker} onClick={() => setShowColorPicker(false)}>
+                                Close
+                            </button>
                         </div>
                     )}
                 </div>
 
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png"/>
+                    <AvatarImage src="https://github.com/shadcn.png" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
             </div>
 
-            <input type="file" id="bgUploadInput" accept="image/*" style={{display: "none"}} onChange={handleBackgroundImageUpload}/>
+            <input
+                type="file"
+                id="bgUploadInput"
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleBackgroundImageUpload}
+            />
         </div>
     );
 }

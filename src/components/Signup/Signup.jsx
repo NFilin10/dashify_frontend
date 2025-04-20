@@ -11,7 +11,6 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // Signup handler
     const signup = async (e) => {
         e.preventDefault();
 
@@ -23,7 +22,7 @@ const Signup = () => {
         };
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/signup", formData, {
+            const response = await axios.post("http://localhost:8080/api/auth/signup", formData, {
                 withCredentials: true,
             });
 

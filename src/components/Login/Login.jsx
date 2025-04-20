@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post("http://localhost:8080/auth/login", {
+            const response = await axios.post("http://localhost:8080/api/auth/login", {
                 password: data.password,
                 email: data.email,
             }, {
@@ -37,9 +37,6 @@ const Login = () => {
             if (response.status === 201) {
                 navigate("/")
             }
-
-
-
 
         } catch (error) {
             console.error(error);

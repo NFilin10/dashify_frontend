@@ -7,7 +7,7 @@ export const useLayoutSettings = (theme, setTheme, color, setColor, workspaceRef
 
     const fetchLayoutSettings = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/get-layout-settings', { withCredentials: true });
+            const response = await axios.get('http://localhost:8080/api/layout/get-layout-settings', { withCredentials: true });
             if (response.data.success) {
                 const { theme, color, image_path } = response.data.settings;
                 setColor(color);
@@ -17,7 +17,7 @@ export const useLayoutSettings = (theme, setTheme, color, setColor, workspaceRef
                 if (!image_path) {
                     setColor(color);
                 } else {
-                    workspaceRef.current.style.backgroundImage = `url(http://localhost:8080/api/${image_path})`;
+                    workspaceRef.current.style.backgroundImage = `url(http://localhost:8080/api/layout/${image_path})`;
                     workspaceRef.current.style.backgroundSize = "cover";
                     workspaceRef.current.style.backgroundRepeat = "no-repeat";
                     workspaceRef.current.style.backgroundPosition = "center";
@@ -35,7 +35,7 @@ export const useLayoutSettings = (theme, setTheme, color, setColor, workspaceRef
     const saveLayoutSettings = async (theme, color) => {
         try {
             const response = await axios.put(
-                'http://localhost:8080/api/save-layout-settings',
+                'http://localhost:8080/api/layout/save-layout-settings',
                 { theme, color },
                 { headers: { 'Content-Type': 'application/json' }, withCredentials: true }
             );

@@ -28,7 +28,7 @@ export function useWeather(widgetId) {
             const data = await getWeather(widgetId);
             setWeather(data);
         } catch (err) {
-            if (err.response?.status !== 404) {  // No city set is not an error here
+            if (err.response?.status !== 404) {
                 setError(err.response?.data?.message || err.message);
             }
         } finally {
@@ -36,9 +36,12 @@ export function useWeather(widgetId) {
         }
     };
 
+    useEffect(() => {
+        if (widgetId) {
+            console.log("Loading saved weather for:", widgetId);
+            loadSavedWeather();
+        }
+    }, [widgetId]);
 
-
-
-
-    return { weather, loading, error, fetchWeather, loadSavedWeather };
+    return { weather, loading, error, fetchWeather };
 }

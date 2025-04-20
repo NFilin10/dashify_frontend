@@ -1,38 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import styles from "./Note.module.css";
 import { useTheme } from "../../../Theme/theme-provider.jsx";
-import { saveNote, getNote } from "@/http/noteService.js"; // Import noteService
+import { useNote } from "@/hooks/useNote.js"; // ← new hook!
 
 const Note = ({ widget_id }) => {
     const { theme } = useTheme();
-    const [note, setNote] = useState("");
-
-    useEffect(() => {
-        const fetchNote = async () => {
-            try {
-                const savedNote = await getNote(widget_id);
-                setNote(savedNote);
-            } catch (err) {
-                console.error("Failed to fetch note:", err);
-            }
-        };
-        fetchNote();
-    }, [widget_id]);
+    const { note, setNote } = useNote(widget_id);
 
     const handleChange = (e) => {
         setNote(e.target.value);
     };
-
-    useEffect(() => {
-        const saveNoteToBackend = async () => {
-            try {
-                await saveNote(widget_id, note);
-            } catch (err) {
-                console.error("Failed to save note:", err);
-            }
-        };
-        if (note !== "") saveNoteToBackend();
-    }, [note, widget_id]);
 
     return (
         <div className={`${styles.widget} ${theme === 'dark' ? styles.dark : ''}`}>

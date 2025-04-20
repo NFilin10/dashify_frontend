@@ -38,7 +38,7 @@ const DynamicWidgetNode = ({ data }) => {
         <div style={containerStyle}>
             <Handle type="target" position={Position.Top} />
             <div className={Styles.closeBtn}
-                 onClick={() => data.onRemove?.(data.id)}
+                 onClick={() => data.onRemove?.(data.widget_id)}
                  title="Remove node"
             >
                 <X size={16} color="#f44336" />
