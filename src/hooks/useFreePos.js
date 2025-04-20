@@ -13,7 +13,7 @@ const useFreePos = (handleRemoveNode, setNodes) => {
                     type: 'widgetNode',
                     position: { x: pos.x, y: pos.y },
                     data: {
-                        id: String(pos.widget_id),
+                        widget_id: String(pos.widget_id),
                         type: pos.widget_type,
                         onRemove: handleRemoveNode,
                     },

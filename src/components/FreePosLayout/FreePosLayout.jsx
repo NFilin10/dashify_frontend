@@ -68,7 +68,7 @@ const DnDFlow = () => {
                     type: 'widgetNode',
                     position,
                     data: {
-                        id: String(widgetId),
+                        widget_id: String(widgetId),
                         type: type,
                         onRemove: handleRemoveNode,
                     },
