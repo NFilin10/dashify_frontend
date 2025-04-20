@@ -22,6 +22,7 @@ import {
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { useColumns } from "@/hooks/useColumnManagement.js";
+import axios from "axios";
 
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns, workspaceRef }) {
     const { theme, setTheme } = useTheme();
@@ -48,6 +49,19 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
             workspaceRef.current.style.backgroundColor = color;
         }
     }, [color, workspaceRef]);
+
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get("http://localhost:8080/api/auth/logout", {
+                withCredentials: true
+            });
+            console.log(response.data);
+            window.location.href = "/login";
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
+    };
+
 
     return (
         <div className={`${Styles.navContainer} text-foreground shadow-md`}>
@@ -123,10 +137,20 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                     )}
                 </div>
 
-                <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Avatar className="cursor-pointer">
+                            <AvatarImage src="https://github.com/shadcn.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-48">
+                        <DropdownMenuItem onClick={handleLogout}>
+                            Logout
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+
             </div>
 
             <input
