@@ -6,7 +6,7 @@ export const useColumns = (columns, setColumns) => {
         if (columns.length >= 5) return;
 
         const newColumn = {
-            id: `Column${columns.length + 1}`,
+            id: `${columns[columns.length - 1].id}`,
             title: '+',
             cards: [],
             width: 100 / (columns.length + 1),

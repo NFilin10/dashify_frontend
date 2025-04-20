@@ -30,9 +30,8 @@ function AppContent() {
     const location = useLocation();
     const isAuthenticated = useAuth();
 
-    const [columns, setColumns] = useState([
+    const [columns, setColumns] = useState([]);
 
-    ]);
 
     useEffect(() => {
         fetch("http://localhost:8080/api/columns/get-columns", { credentials: "include" })
@@ -45,6 +44,7 @@ function AppContent() {
                         cards: [],
                         width: col.width
                     })));
+
                 } else {
                     console.error("Invalid data format:", data);
                 }

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 import {
     ReactFlow,
     ReactFlowProvider,
@@ -12,7 +12,8 @@ import {
 import '@xyflow/react/dist/style.css';
 import { useDnD } from '@/contexts/DnDContext.jsx';
 import DynamicWidgetNode from "@/components/Nodes/DynamicWidgetNode.jsx";
-import { useFreePos } from '@/hooks/useFreePos.js'; // Use custom hook
+import { deleteWidget, addWidget, addWidgetPosition, updateWidgetPosition } from '@/http/freePosService.js';
+import useWidgets from '@/hooks/useFreePos.js';
 
 const initialNodes = [];
 let id = 2;
@@ -24,7 +25,9 @@ const nodeTypes = {
 
 const DnDFlow = () => {
     const reactFlowWrapper = useRef(null);
-    const { nodes, edges, setEdges, handleAddWidget, handleUpdateWidgetPosition } = useFreePos();
+    const [nodes, setNodes, onNodesChangeBase] = useNodesState(initialNodes);
+    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+    const { screenToFlowPosition } = useReactFlow();
     const [type] = useDnD();
 
     const onConnect = useCallback(
@@ -37,19 +40,70 @@ const DnDFlow = () => {
         event.dataTransfer.dropEffect = 'move';
     }, []);
 
+    const handleRemoveNode = useCallback(async (nodeId) => {
+        try {
+            await deleteWidget(nodeId);
+            setNodes((nodes) => nodes.filter((node) => node.id !== nodeId));
+        } catch (error) {
+            console.error("Error deleting widget:", error);
+        }
+    }, [setNodes]);
+
     const onDrop = useCallback(
-        (event) => {
+        async (event) => {
             event.preventDefault();
             if (!type) return;
 
-            handleAddWidget(type, event);
+            const position = screenToFlowPosition({
+                x: event.clientX,
+                y: event.clientY,
+            });
+
+            try {
+                const response = await addWidget(type);
+                const { widgetId } = response.data;
+
+                const newNode = {
+                    id: String(widgetId),
+                    type: 'widgetNode',
+                    position,
+                    data: {
+                        id: String(widgetId),
+                        type: type,
+                        onRemove: handleRemoveNode,
+                    },
+                };
+
+                setNodes((nds) => nds.concat(newNode));
+                await addWidgetPosition(widgetId, position);
+            } catch (error) {
+                console.error("Error adding widget:", error);
+                alert("Could not add widget. Try again.");
+            }
         },
-        [type, handleAddWidget]
+        [screenToFlowPosition, type, handleRemoveNode, setNodes]
     );
 
     const onNodesChange = useCallback((changes) => {
-        handleUpdateWidgetPosition(changes);
-    }, [handleUpdateWidgetPosition]);
+        setNodes((nds) => {
+            const updatedNodes = nds.map((node) => {
+                const change = changes.find((c) => c.id === node.id);
+                if (change?.type === 'position' && change.position) {
+                    updateWidgetPosition(node.id, change.position).catch((err) =>
+                        console.error("Failed to update widget position", err)
+                    );
+
+                    return { ...node, position: change.position };
+                }
+                return node;
+            });
+            return updatedNodes;
+        });
+
+        onNodesChangeBase(changes);
+    }, [setNodes, onNodesChangeBase]);
+
+    useWidgets(handleRemoveNode, setNodes);
 
     return (
         <div className="dndflow">
@@ -59,7 +113,7 @@ const DnDFlow = () => {
                     edges={edges}
                     nodeTypes={nodeTypes}
                     onNodesChange={onNodesChange}
-                    onEdgesChange={setEdges}
+                    onEdgesChange={onEdgesChange}
                     onConnect={onConnect}
                     onDrop={onDrop}
                     onDragOver={onDragOver}
