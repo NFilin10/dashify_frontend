@@ -57,7 +57,7 @@ export const useBackgroundImage = (workspaceRef, color, setImgUrl, imgUrl) => {
         console.log("here")
         console.log(`url(http://localhost:8080/api/${imgUrl})`)
         setImgUrl(imgUrl);
-        workspaceRef.current.style.backgroundImage = `url(http://localhost:8080/layout/api/${imgUrl})`;
+        workspaceRef.current.style.backgroundImage = `url(http://localhost:8080/api/layout/${imgUrl})`;
         workspaceRef.current.style.backgroundSize = "cover";
         workspaceRef.current.style.backgroundRepeat = "no-repeat";
         workspaceRef.current.style.backgroundPosition = "center";

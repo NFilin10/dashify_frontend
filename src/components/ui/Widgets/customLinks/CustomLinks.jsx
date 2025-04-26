@@ -1,45 +1,31 @@
 import React, { useState } from "react";
 import styles from "./CustomLinks.module.css";
 import { useTheme } from "../../../Theme/theme-provider.jsx";
+import { useCustomLinks } from "@/hooks/useCustomLinks.js";
 
-
-function CustomLinks() {
+function CustomLinks({widget_id}) {
     const { theme } = useTheme();
     const [url, setUrl] = useState("");
-    const [links, setLinks] = useState([]);
+    const themeClass = theme === 'dark' ? 'dark' : 'light';
 
-    const getFavicon = (linkUrl) => {
-        try {
-            const domain = new URL(linkUrl).origin;
-            return `${domain}/favicon.ico`;
-        } catch {
-            return null;
-        }
-    };
+    const {
+        links,
+        loading,
+        error,
+        addNewLink,
+        removeLink
+    } = useCustomLinks(widget_id);
 
-    const getSiteName = (linkUrl) => {
-        try {
-            const { hostname } = new URL(linkUrl);
-            return hostname.replace(/^www\./, '');
-        } catch {
-            return linkUrl;
-        }
-    };
-
-    const handleAddLink = (e) => {
+    const handleAddLink = async (e) => {
         e.preventDefault();
         if (!url.trim()) return;
-        const favicon = getFavicon(url);
-        const name = getSiteName(url);
-        setLinks([...links, { url, favicon, name }]);
+        await addNewLink(url);
         setUrl("");
     };
 
-    const handleDeleteLink = (index) => {
-        setLinks(links.filter((_, i) => i !== index));
+    const handleDeleteLink = async (id) => {
+        await removeLink(id);
     };
-
-    const themeClass = theme === 'dark' ? 'dark' : 'light';
 
     return (
         <div className={`${styles.widget} ${styles[themeClass]}`}>
@@ -55,9 +41,12 @@ function CustomLinks() {
                 <button type="submit" className={styles.button}>Add</button>
             </form>
 
+            {loading && <p>Loading...</p>}
+            {error && <p style={{color: 'red'}}>Error loading links</p>}
+
             <div className={styles.grid}>
-                {links.map((link, idx) => (
-                    <div key={idx} className={styles.tileWrapper}>
+                {links.map((link) => (
+                    <div key={link.id} className={styles.tileWrapper}>
                         <a
                             href={link.url}
                             className={styles.tile}
@@ -76,7 +65,7 @@ function CustomLinks() {
                         </a>
                         <button
                             className={styles.closeBtn}
-                            onClick={() => handleDeleteLink(idx)}
+                            onClick={() => handleDeleteLink(link.id)}
                             title="Remove"
                         >
                             &times;
@@ -86,6 +75,6 @@ function CustomLinks() {
             </div>
         </div>
     );
-};
+}
 
 export default CustomLinks;

@@ -1,5 +1,5 @@
 .carouselContainer {
-    width: 100%;
+    max-width: 500px;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
@@ -15,13 +15,17 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     border-radius: 10px;
     box-shadow: var(--img-shadow);
     transition: box-shadow 0.3s ease;
     max-width: 500px;
-    max-height: 500px;
+    height: 400px;
+}
+
+.imgElem img{
+    height: 400px;
 }
 
 .removeBtn {

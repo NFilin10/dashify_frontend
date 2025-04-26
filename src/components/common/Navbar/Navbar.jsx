@@ -77,8 +77,12 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                 <div style={{ position: "relative" }} ref={dropdownRef}>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <IoIosSettings style={{ fontSize: "2rem", cursor: "pointer" }} />
+                            <button type="button" className={Styles.settings}>
+                                <IoIosSettings style={{ fontSize: "2rem", cursor: "pointer" }}/>
+                            </button>
                         </DropdownMenuTrigger>
+
+
                         <DropdownMenuContent className="w-56">
                             <DropdownMenuGroup>
                                 <DropdownMenuSub>
@@ -129,10 +133,14 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
 
                     {showColorPicker && (
                         <div className={Styles.colorPickerWrapper}>
-                            <HexColorPicker color={color} onChange={setColor} />
-                            <button className={Styles.closePicker} onClick={() => setShowColorPicker(false)}>
+                            <HexColorPicker color={color} onChange={setColor}/>
+                            <button
+                                className={`${Styles.closePicker} shadow-md bg-white text-black dark:bg-gray-800 dark:text-white`}
+                                onClick={() => setShowColorPicker(false)}
+                            >
                                 Close
                             </button>
+
                         </div>
                     )}
                 </div>
