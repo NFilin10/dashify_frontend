@@ -82,21 +82,39 @@ const ColumnLayout = ({ columns, setColumns }) => {
         if (!activeWidget) return;
 
         setColumns((prevColumns) => {
-            let newColumns = prevColumns.map((col) => {
-                let cards = [...col.cards];
-                if (col.cards.some(c => c.id === active.id)) {
-                    cards = cards.filter((c) => c.id !== active.id);
-                }
-                return { ...col, cards };
-            });
+            let newColumns = [...prevColumns];
 
-            let targetColumn = newColumns.find((c) => c.id === overColumn.id);
-            let overIndex = targetColumn.cards.findIndex((c) => c.id === over.id);
-            if (overIndex === -1) overIndex = targetColumn.cards.length;
+            if (activeColumn === overColumn) {
+                const newCards = [...activeColumn.cards];
+                const activeIndex = newCards.findIndex(c => c.id === active.id);
+                newCards.splice(activeIndex, 1);  // Remove the active widget
+                let targetIndex = overColumn.cards.findIndex(c => c.id === over.id);
 
-            targetColumn.cards.splice(overIndex, 0, activeWidget);
+                if (targetIndex === -1) targetIndex = overColumn.cards.length;
 
-            return newColumns.map(col => col.id === targetColumn.id ? targetColumn : col);
+                newCards.splice(targetIndex, 0, activeWidget);
+
+                newColumns = newColumns.map(col =>
+                    col.id === activeColumn.id ? { ...col, cards: newCards } : col
+                );
+            } else {
+                newColumns = prevColumns.map((col) => {
+                    let cards = [...col.cards];
+                    if (col.cards.some(c => c.id === active.id)) {
+                        cards = cards.filter((c) => c.id !== active.id);
+                    }
+                    return { ...col, cards };
+                });
+
+                let targetColumn = newColumns.find((c) => c.id === overColumn.id);
+                let overIndex = targetColumn.cards.findIndex((c) => c.id === over.id);
+                if (overIndex === -1) overIndex = targetColumn.cards.length;
+
+                targetColumn.cards.splice(overIndex, 0, activeWidget);
+                newColumns = newColumns.map(col => col.id === targetColumn.id ? targetColumn : col);
+            }
+
+            return newColumns;
         });
 
         const new_column_id = parseInt(overColumn.id.replace("Column", ""));
@@ -105,6 +123,7 @@ const ColumnLayout = ({ columns, setColumns }) => {
 
         handlePositionUpdate(widget_id, new_column_id, targetIndex === -1 ? overColumn.cards.length - 1 : targetIndex);
     };
+
 
     const sensors = useSensors(
         useSensor(PointerSensor),

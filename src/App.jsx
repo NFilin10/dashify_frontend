@@ -19,15 +19,13 @@ import WeatherWidget from "@/components/ui/Widgets/Weather/WeatherWidget.jsx";
 import Note from "@/components/ui/Widgets/Note/Note.jsx";
 import customLinks from "@/components/ui/Widgets/customLinks/CustomLinks.jsx";
 import News from "@/components/ui/Widgets/News/News.jsx";
-import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx"; // Adjust the import path if needed
+import ToDo from "@/components/ui/Widgets/ToDo/ToDo.jsx";
 
 function AppContent() {
     const [isSwitchOn, setIsSwitchOn] = useState(false);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const sidebarRef = useRef(null);
     const workspaceRef = useRef(null);
-    const { theme } = useTheme();
-    const location = useLocation();
     const isAuthenticated = useAuth();
 
     const [columns, setColumns] = useState([]);
@@ -68,35 +66,40 @@ function AppContent() {
     };
 
     useEffect(() => {
-        fetch("http://localhost:8080/api/columns/widgets/column-widgets", { credentials: "include" })
-            .then(res => res.json())
-            .then(data => {
-                if (Array.isArray(data)) {
-                    const widgetsByColumn = {};
+        if (!isSwitchOn) return;
 
-                    data.forEach(widget => {
-                        const widgetData = {
-                            id: `widget-${widget.widget_id}`,
-                            type: widget.widget_type,
-                            Component: widgetComponents[widget.widget_type] || null,
-                        };
-                        if (!widgetsByColumn[`Column${widget.column_id}`]) {
-                            widgetsByColumn[`Column${widget.column_id}`] = [];
-                        }
-                        widgetsByColumn[`Column${widget.column_id}`].push(widgetData);
-                    });
+        if (columns.every(col => col.cards.length === 0)) {
+            fetch("http://localhost:8080/api/columns/widgets/column-widgets", { credentials: "include" })
+                .then(res => res.json())
+                .then(data => {
+                    if (Array.isArray(data)) {
+                        const widgetsByColumn = {};
 
-                    setColumns(prev =>
-                        prev.map(col => ({
-                            ...col,
-                            cards: widgetsByColumn[col.id] || []
-                        }))
-                    );
-                }
-            })
-            .catch(err => console.error("Error fetching widgets:", err));
+                        data.forEach(widget => {
+                            const widgetData = {
+                                id: `widget-${widget.widget_id}`,
+                                type: widget.widget_type,
+                                Component: widgetComponents[widget.widget_type] || null,
+                            };
+                            if (!widgetsByColumn[`Column${widget.column_id}`]) {
+                                widgetsByColumn[`Column${widget.column_id}`] = [];
+                            }
+                            widgetsByColumn[`Column${widget.column_id}`].push(widgetData);
+                        });
 
-    }, [isSwitchOn]);
+                        setColumns(prev =>
+                            prev.map(col => ({
+                                ...col,
+                                cards: widgetsByColumn[col.id] || []
+                            }))
+                        );
+                    }
+                })
+                .catch(err => console.error("Error fetching widgets:", err));
+        }
+    }, [isSwitchOn, columns]);
+
+
 
 
 
