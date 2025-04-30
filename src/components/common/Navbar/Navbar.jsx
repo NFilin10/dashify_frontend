@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useColumns } from "@/hooks/useColumnManagement.js";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns, workspaceRef }) {
     const { theme, setTheme } = useTheme();
@@ -34,6 +36,8 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
     const dropdownRef = useRef(null);
     const [showDropdown, setShowDropdown] = useState(false);
     const [showColorPicker, setShowColorPicker] = useState(false);
+
+    const navigate = useNavigate();
 
     useLayoutSettings(theme, setTheme, color, setColor, workspaceRef, setImgUrl);
     const { addColumn, removeColumn, updateColumnWidth } = useColumns(columns, setColumns);
@@ -56,11 +60,12 @@ function Navbar({ toggleSidebar, isSwitchOn, setIsSwitchOn, columns, setColumns,
                 withCredentials: true
             });
             console.log(response.data);
-            window.location.href = "/login";
+            navigate("/login");
         } catch (error) {
             console.error("Logout failed:", error);
         }
     };
+
 
 
     return (

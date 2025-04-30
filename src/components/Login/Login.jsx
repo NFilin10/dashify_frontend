@@ -52,14 +52,16 @@ const Login = () => {
                 <input className={Styles.input} type="checkbox" id={Styles.chk} aria-hidden="true"/>
 
                 <div className="login">
-                    <form>
+                    <form onSubmit={LoginIn}>
                         <label className={Styles.label} htmlFor="chk" aria-hidden="true">Login</label>
-                        <input className={Styles.input} onChange={(e) => setLogin(e.target.value)} type="email" name="email" placeholder="Email" />
-                        <input className={Styles.input} onChange={(e) => setPassword(e.target.value)} type="password" name="pswd" placeholder="Password" />
-                        <button onClick={LoginIn} className={Styles.button}>Login</button>
-                        <button onClick={routeChangeSignUp} className={Styles.button}>Signup</button>
-
+                        <input className={Styles.input} onChange={(e) => setLogin(e.target.value)} type="email"
+                               name="email" placeholder="Email"/>
+                        <input className={Styles.input} onChange={(e) => setPassword(e.target.value)} type="password"
+                               name="pswd" placeholder="Password"/>
+                        <button type="submit" className={Styles.button}>Login</button>
+                        <button type="button" onClick={routeChangeSignUp} className={Styles.button}>Signup</button>
                     </form>
+
                 </div>
             </div>
         </div>
